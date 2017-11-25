@@ -19,7 +19,6 @@ const marathon = "data/marathon-data-with-geo.csv";
 
 
 
-
 function init() {
     drawMap(2017)    
 }

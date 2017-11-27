@@ -7,7 +7,7 @@
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
   <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
-  
+
 	<script src="//d3js.org/topojson.v1.min.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.css" />
 	<link rel="stylesheet" href="https://cdn.rawgit.com/socib/Leaflet.TimeDimension/master/dist/leaflet.timedimension.control.min.css"></link>
@@ -33,21 +33,21 @@
           </a>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
-          <a class="nav-link" href="charts.html">
+          <a class="nav-link" href="dendrogram.html">
             <i class="fa fa-fw fa-area-chart"></i>
-            <span class="nav-link-text">Charts</span>
-          </a>
-        </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-          <a class="nav-link" href="tables.html">
-            <i class="fa fa-fw fa-table"></i>
-            <span class="nav-link-text">Tables</span>
+            <span class="nav-link-text">Dendrogram</span>
           </a>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
           <a class="nav-link" href="path.html">
-            <i class="fa fa-fw fa-table"></i>
+            <i class="fa fa-fw fa-dashboard"></i>
             <span class="nav-link-text">Path</span>
+          </a>
+        </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+          <a class="nav-link" href="dataset.html">
+            <i class="fa fa-fw fa-table"></i>
+            <span class="nav-link-text">Dataset</span>
           </a>
         </li>
       </ul>
@@ -65,7 +65,7 @@
           </li>
           <li class="breadcrumb-item active"> Data visualization name TBD</li>
         </ol>
-  
+
         <!-- Data viz description-->
         <div class="card mb-3">
           <div class="card-header">
@@ -73,15 +73,15 @@
           <div class="card-body">
           </div>
         </div>
-      
+
       <div class="card mb-3" id="map-container">
       <!-- <div id="map-container"> -->
       <div width="100%" height="100%">
         <!-- <div class="card-body" width="100%" height="100%"> -->
         <iframe id="iFrame1" name="iFrame1" width="100%" height="500"  onload="this.height=iFrame1.document.body.scrollHeight" frameborder="0" src="path_iframe.html"></iframe>
       </div>
-      
-      </div>      
+
+      </div>
       <!-- <div id="geomap"></div> -->
     </div>
       <!-- /.content-wrapper-->

@@ -1,0 +1,1733 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>SB Admin - Start Bootstrap Template</title>
+  <!-- Bootstrap core CSS-->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom fonts for this template-->
+  <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <!-- Page level plugin CSS-->
+  <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+  <!-- Custom styles for this template-->
+  <link href="css/sb-admin.css" rel="stylesheet">
+</head>
+
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+  <!-- Navigation-->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+      <a class="navbar-brand" href="index.html">EPFL COM-480 Data Visualization 2017 </a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+            <a class="nav-link" href="index.html">
+              <i class="fa fa-fw fa-dashboard"></i>
+              <span class="nav-link-text">Map</span>
+            </a>
+          </li>
+          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+            <a class="nav-link" href="dendrogram.html">
+              <i class="fa fa-fw fa-area-chart"></i>
+              <span class="nav-link-text">Dendrogram</span>
+            </a>
+          </li>
+          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+            <a class="nav-link" href="path.html">
+              <i class="fa fa-fw fa-dashboard"></i>
+              <span class="nav-link-text">Path</span>
+            </a>
+          </li>
+          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+            <a class="nav-link" href="dataset.html">
+              <i class="fa fa-fw fa-table"></i>
+              <span class="nav-link-text">Dataset</span>
+            </a>
+          </li>
+        </ul>
+        <!-- <ul class="navbar-nav sidenav-toggler">
+        </ul> -->
+      </div>
+    </nav>
+
+
+  <!-- dataset part-->
+  <div class="content-wrapper">
+    <div class="container-fluid">
+
+      <!-- Breadcrumbs-->
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="#">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active"> Lausanne marathon dataset</li>
+      </ol>
+
+      <!--Dataset description-->
+      <div class="card mb-3">
+        <div class="card-header">
+          <i class="fa fa-table"></i> Dataset description</div>
+        <div class="card-body">
+        </div>
+      </div>
+
+      <!--Dataset format example-->
+      <div class="card mb-3">
+        <div class="card-header">
+          <i class="fa fa-table"></i> Dataset example</div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <thead>
+              <tr>
+                    <td>name</td>
+                    <td>birth year</td>
+                    <td>age</td>
+                    <td>age group</td>
+                    <td>gender</td>
+                    <td>race year</td>
+                    <td>category</td>
+                    <td>rank</td>
+                    <td>time</td>
+                    <td>city</td>
+                    <td>canton</td>
+                    <td>country</td>
+                    <td>latitude</td>
+                    <td>longitude</td>
+              </tr>
+            </thead>
+             <tbody>
+              <tr>
+                    <td>Abantes Jose</td>
+                    <td>1955</td>
+                    <td>62</td>
+                    <td>other</td>
+                    <td>male</td>
+                    <td>2003</td>
+                    <td>21</td>
+                    <td>1.</td>
+                    <td>1:09.47,4</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Epiney Luc</td>
+                    <td>1945</td>
+                    <td>72</td>
+                    <td>other</td>
+                    <td>male</td>
+                    <td>2003</td>
+                    <td>42</td>
+                    <td>132.</td>
+                    <td>3:56.53,1</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Giachino Primo</td>
+                    <td>1951</td>
+                    <td>66</td>
+                    <td>other</td>
+                    <td>male</td>
+                    <td>2003</td>
+                    <td>42</td>
+                    <td>206.</td>
+                    <td>4:31.31,2</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Mabire Cedric</td>
+                    <td>1973</td>
+                    <td>44</td>
+                    <td>40-50</td>
+                    <td>male</td>
+                    <td>2003</td>
+                    <td>42</td>
+                    <td>497.</td>
+                    <td>1:41.40,2</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Matter Frank</td>
+                    <td>1972</td>
+                    <td>45</td>
+                    <td>40-50</td>
+                    <td>male</td>
+                    <td>2003</td>
+                    <td>21</td>
+                    <td>76.</td>
+                    <td>1:26.20,3</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Seara Ricardo</td>
+                    <td>1979</td>
+                    <td>38</td>
+                    <td>30-40</td>
+                    <td>male</td>
+                    <td>2003</td>
+                    <td>10</td>
+                    <td>11.</td>
+                    <td>33.33,1</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Theytaz Jean-Pierre</td>
+                    <td>1983</td>
+                    <td>34</td>
+                    <td>30-40</td>
+                    <td>male</td>
+                    <td>2003</td>
+                    <td>10</td>
+                    <td>12.</td>
+                    <td>33.53,1</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Zufferey Christian</td>
+                    <td>1965</td>
+                    <td>52</td>
+                    <td>other</td>
+                    <td>male</td>
+                    <td>2003</td>
+                    <td>21</td>
+                    <td>537.</td>
+                    <td>1:56.23,5</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Zufferey Jean-Claude</td>
+                    <td>1955</td>
+                    <td>62</td>
+                    <td>other</td>
+                    <td>male</td>
+                    <td>2003</td>
+                    <td>21</td>
+                    <td>192.</td>
+                    <td>1:39.55,9</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Zufferey Julie</td>
+                    <td>1987</td>
+                    <td>30</td>
+                    <td>30-40</td>
+                    <td>female</td>
+                    <td>2003</td>
+                    <td>10</td>
+                    <td>141.</td>
+                    <td>56.42,4</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Zufferey Steve</td>
+                    <td>1987</td>
+                    <td>30</td>
+                    <td>30-40</td>
+                    <td>male</td>
+                    <td>2003</td>
+                    <td>10</td>
+                    <td>78.</td>
+                    <td>42.39,8</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Bonvin Sandrine</td>
+                    <td>1977</td>
+                    <td>40</td>
+                    <td>40-50</td>
+                    <td>female</td>
+                    <td>2008</td>
+                    <td>21</td>
+                    <td>174.</td>
+                    <td>2:03.35,9</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Brassard Sebastien</td>
+                    <td>1977</td>
+                    <td>40</td>
+                    <td>40-50</td>
+                    <td>male</td>
+                    <td>2008</td>
+                    <td>10</td>
+                    <td>256.</td>
+                    <td>52.39,4</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Crisostomo Luis</td>
+                    <td>1960</td>
+                    <td>57</td>
+                    <td>other</td>
+                    <td>male</td>
+                    <td>2008</td>
+                    <td>10</td>
+                    <td>165.</td>
+                    <td>48.19,1</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Michel Dominique</td>
+                    <td>1966</td>
+                    <td>51</td>
+                    <td>other</td>
+                    <td>male</td>
+                    <td>2008</td>
+                    <td>42</td>
+                    <td>9.</td>
+                    <td>2:55.20,5</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Navez Maxime</td>
+                    <td>1981</td>
+                    <td>36</td>
+                    <td>30-40</td>
+                    <td>male</td>
+                    <td>2008</td>
+                    <td>21</td>
+                    <td>138.</td>
+                    <td>1:41.14,3</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Praz Joel</td>
+                    <td>1980</td>
+                    <td>37</td>
+                    <td>30-40</td>
+                    <td>male</td>
+                    <td>2008</td>
+                    <td>10</td>
+                    <td>60.</td>
+                    <td>42.25,4</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Schmid Pascale</td>
+                    <td>1966</td>
+                    <td>51</td>
+                    <td>other</td>
+                    <td>female</td>
+                    <td>2008</td>
+                    <td>10</td>
+                    <td>237.</td>
+                    <td>1:08.10,2</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Bonvin Mélissa</td>
+                    <td>1987</td>
+                    <td>30</td>
+                    <td>30-40</td>
+                    <td>female</td>
+                    <td>2011</td>
+                    <td>10</td>
+                    <td>97.</td>
+                    <td>52.19,6</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Fitoussi Lucas</td>
+                    <td>1987</td>
+                    <td>30</td>
+                    <td>30-40</td>
+                    <td>male</td>
+                    <td>2011</td>
+                    <td>21</td>
+                    <td>497.</td>
+                    <td>2:32.22,1</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Hansen Nils</td>
+                    <td>1959</td>
+                    <td>58</td>
+                    <td>other</td>
+                    <td>male</td>
+                    <td>2011</td>
+                    <td>42</td>
+                    <td>12.</td>
+                    <td>3:17.38,5</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Lefrancois Bruno</td>
+                    <td>1970</td>
+                    <td>47</td>
+                    <td>40-50</td>
+                    <td>male</td>
+                    <td>2011</td>
+                    <td>42</td>
+                    <td>235.</td>
+                    <td>3:56.47,5</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Mercadal François</td>
+                    <td>1972</td>
+                    <td>45</td>
+                    <td>40-50</td>
+                    <td>male</td>
+                    <td>2011</td>
+                    <td>42</td>
+                    <td>305.</td>
+                    <td>5:11.20,8</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Michel Dominique</td>
+                    <td>1966</td>
+                    <td>51</td>
+                    <td>other</td>
+                    <td>male</td>
+                    <td>2011</td>
+                    <td>42</td>
+                    <td>12.</td>
+                    <td>2:58.45,8</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Vetter Odette</td>
+                    <td>1948</td>
+                    <td>69</td>
+                    <td>other</td>
+                    <td>female</td>
+                    <td>2011</td>
+                    <td>21</td>
+                    <td>9.</td>
+                    <td>1:56.07,6</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Zufferey Etienne</td>
+                    <td>1980</td>
+                    <td>37</td>
+                    <td>30-40</td>
+                    <td>male</td>
+                    <td>2011</td>
+                    <td>10</td>
+                    <td>312.</td>
+                    <td>51.10,7</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Amaral Antonio</td>
+                    <td>1978</td>
+                    <td>39</td>
+                    <td>30-40</td>
+                    <td>male</td>
+                    <td>2014</td>
+                    <td>10</td>
+                    <td>840.</td>
+                    <td>1:07.53,5</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Antille Joël</td>
+                    <td>1990</td>
+                    <td>27</td>
+                    <td>20-30</td>
+                    <td>male</td>
+                    <td>2014</td>
+                    <td>10</td>
+                    <td>577.</td>
+                    <td>1:04.17,7</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Beysard Paul-Alain</td>
+                    <td>1950</td>
+                    <td>67</td>
+                    <td>other</td>
+                    <td>male</td>
+                    <td>2014</td>
+                    <td>10</td>
+                    <td>9.</td>
+                    <td>41.53,6</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Bonvin Sandrine</td>
+                    <td>1977</td>
+                    <td>40</td>
+                    <td>40-50</td>
+                    <td>female</td>
+                    <td>2014</td>
+                    <td>21</td>
+                    <td>135.</td>
+                    <td>1:56.52,3</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Bovier Yannick</td>
+                    <td>1987</td>
+                    <td>30</td>
+                    <td>30-40</td>
+                    <td>male</td>
+                    <td>2014</td>
+                    <td>10</td>
+                    <td>433.</td>
+                    <td>52.41,5</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Caloz Vincent</td>
+                    <td>1990</td>
+                    <td>27</td>
+                    <td>20-30</td>
+                    <td>male</td>
+                    <td>2014</td>
+                    <td>10</td>
+                    <td>115.</td>
+                    <td>41.57,6</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Cordonier Raphael</td>
+                    <td>1978</td>
+                    <td>39</td>
+                    <td>30-40</td>
+                    <td>male</td>
+                    <td>2014</td>
+                    <td>10</td>
+                    <td>132.</td>
+                    <td>42.41,7</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Glassey Sylvie</td>
+                    <td>1983</td>
+                    <td>34</td>
+                    <td>30-40</td>
+                    <td>female</td>
+                    <td>2014</td>
+                    <td>10</td>
+                    <td>557.</td>
+                    <td>1:01.09,4</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Hansen Nils</td>
+                    <td>1959</td>
+                    <td>58</td>
+                    <td>other</td>
+                    <td>male</td>
+                    <td>2014</td>
+                    <td>42</td>
+                    <td>9.</td>
+                    <td>3:10.08,1</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Lefrancois Bruno</td>
+                    <td>1970</td>
+                    <td>47</td>
+                    <td>40-50</td>
+                    <td>male</td>
+                    <td>2014</td>
+                    <td>42</td>
+                    <td>68.</td>
+                    <td>3:27.29,5</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Lourenço Anne-Sophie</td>
+                    <td>1985</td>
+                    <td>32</td>
+                    <td>30-40</td>
+                    <td>female</td>
+                    <td>2014</td>
+                    <td>10</td>
+                    <td>768.</td>
+                    <td>1:10.23,7</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Mercadal François</td>
+                    <td>1972</td>
+                    <td>45</td>
+                    <td>40-50</td>
+                    <td>male</td>
+                    <td>2014</td>
+                    <td>10</td>
+                    <td>281.</td>
+                    <td>49.43,0</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Pfyffer Marie</td>
+                    <td>1989</td>
+                    <td>28</td>
+                    <td>20-30</td>
+                    <td>female</td>
+                    <td>2014</td>
+                    <td>10</td>
+                    <td>732.</td>
+                    <td>1:07.30,9</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Poeppler Sonja</td>
+                    <td>1971</td>
+                    <td>46</td>
+                    <td>40-50</td>
+                    <td>female</td>
+                    <td>2014</td>
+                    <td>10</td>
+                    <td>183.</td>
+                    <td>55.35,5</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Rey Caroline</td>
+                    <td>1991</td>
+                    <td>26</td>
+                    <td>20-30</td>
+                    <td>female</td>
+                    <td>2014</td>
+                    <td>21</td>
+                    <td>145.</td>
+                    <td>1:55.56,7</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Rey Fabienne</td>
+                    <td>1986</td>
+                    <td>31</td>
+                    <td>30-40</td>
+                    <td>female</td>
+                    <td>2014</td>
+                    <td>10</td>
+                    <td>286.</td>
+                    <td>55.26,7</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Rey Jean-Pierre</td>
+                    <td>1962</td>
+                    <td>55</td>
+                    <td>other</td>
+                    <td>male</td>
+                    <td>2014</td>
+                    <td>10</td>
+                    <td>267.</td>
+                    <td>1:00.05,3</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Rey Stéphanie</td>
+                    <td>1988</td>
+                    <td>29</td>
+                    <td>20-30</td>
+                    <td>female</td>
+                    <td>2014</td>
+                    <td>10</td>
+                    <td>249.</td>
+                    <td>54.33,4</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Rouiller Michael</td>
+                    <td>1986</td>
+                    <td>31</td>
+                    <td>30-40</td>
+                    <td>male</td>
+                    <td>2014</td>
+                    <td>42</td>
+                    <td>25.</td>
+                    <td>3:24.25,5</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Rudaz Christophe</td>
+                    <td>1973</td>
+                    <td>44</td>
+                    <td>40-50</td>
+                    <td>male</td>
+                    <td>2014</td>
+                    <td>10</td>
+                    <td>236.</td>
+                    <td>48.30,6</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Tufarolo Sandra</td>
+                    <td>1994</td>
+                    <td>23</td>
+                    <td>20-30</td>
+                    <td>female</td>
+                    <td>2014</td>
+                    <td>10</td>
+                    <td>614.</td>
+                    <td>1:03.23,1</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Valiquer Frédéric</td>
+                    <td>1982</td>
+                    <td>35</td>
+                    <td>30-40</td>
+                    <td>male</td>
+                    <td>2014</td>
+                    <td>10</td>
+                    <td>41.</td>
+                    <td>38.15,7</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Zuber Karim</td>
+                    <td>1988</td>
+                    <td>29</td>
+                    <td>20-30</td>
+                    <td>male</td>
+                    <td>2014</td>
+                    <td>10</td>
+                    <td>542.</td>
+                    <td>1:00.25,7</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Zufferey Denis</td>
+                    <td>1989</td>
+                    <td>28</td>
+                    <td>20-30</td>
+                    <td>male</td>
+                    <td>2014</td>
+                    <td>10</td>
+                    <td>496.</td>
+                    <td>56.15,2</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Zufferey Etienne</td>
+                    <td>1980</td>
+                    <td>37</td>
+                    <td>30-40</td>
+                    <td>male</td>
+                    <td>2014</td>
+                    <td>10</td>
+                    <td>151.</td>
+                    <td>43.31,8</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Bagnoud Sabrina</td>
+                    <td>1972</td>
+                    <td>45</td>
+                    <td>40-50</td>
+                    <td>female</td>
+                    <td>2015</td>
+                    <td>10</td>
+                    <td>400.</td>
+                    <td>1:01.43,3</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Beysard Paul-Alain</td>
+                    <td>1950</td>
+                    <td>67</td>
+                    <td>other</td>
+                    <td>male</td>
+                    <td>2015</td>
+                    <td>10</td>
+                    <td>9.</td>
+                    <td>41.56,6</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Bonvin Eric</td>
+                    <td>1971</td>
+                    <td>46</td>
+                    <td>40-50</td>
+                    <td>male</td>
+                    <td>2015</td>
+                    <td>21</td>
+                    <td>251.</td>
+                    <td>1:43.07,8</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Bonvin Sandrine</td>
+                    <td>1977</td>
+                    <td>40</td>
+                    <td>40-50</td>
+                    <td>female</td>
+                    <td>2015</td>
+                    <td>21</td>
+                    <td>137.</td>
+                    <td>1:53.28,3</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Currat Brigitte</td>
+                    <td>1963</td>
+                    <td>54</td>
+                    <td>other</td>
+                    <td>female</td>
+                    <td>2015</td>
+                    <td>21</td>
+                    <td>40.</td>
+                    <td>1:57.32,3</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Favre Ludovic</td>
+                    <td>1985</td>
+                    <td>32</td>
+                    <td>30-40</td>
+                    <td>male</td>
+                    <td>2015</td>
+                    <td>10</td>
+                    <td>212.</td>
+                    <td>43.35,3</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Germini Tony</td>
+                    <td>1974</td>
+                    <td>43</td>
+                    <td>40-50</td>
+                    <td>male</td>
+                    <td>2015</td>
+                    <td>21</td>
+                    <td>641.</td>
+                    <td>2:02.16,8</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Lefrancois Bruno</td>
+                    <td>1970</td>
+                    <td>47</td>
+                    <td>40-50</td>
+                    <td>male</td>
+                    <td>2015</td>
+                    <td>42</td>
+                    <td>58.</td>
+                    <td>3:25.38,8</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Masserey Sarah</td>
+                    <td>1975</td>
+                    <td>42</td>
+                    <td>40-50</td>
+                    <td>female</td>
+                    <td>2015</td>
+                    <td>10</td>
+                    <td>25.</td>
+                    <td>46.22,8</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Meugnier Claire</td>
+                    <td>1982</td>
+                    <td>35</td>
+                    <td>30-40</td>
+                    <td>female</td>
+                    <td>2015</td>
+                    <td>10</td>
+                    <td>83.</td>
+                    <td>49.49,3</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Mootien Jonael</td>
+                    <td>1990</td>
+                    <td>27</td>
+                    <td>20-30</td>
+                    <td>male</td>
+                    <td>2015</td>
+                    <td>21</td>
+                    <td>567.</td>
+                    <td>2:23.43,1</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Oreiller Joaquim</td>
+                    <td>1984</td>
+                    <td>33</td>
+                    <td>30-40</td>
+                    <td>male</td>
+                    <td>2015</td>
+                    <td>42</td>
+                    <td>248.</td>
+                    <td>4:30.12,6</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Pfyffer Marie</td>
+                    <td>1989</td>
+                    <td>28</td>
+                    <td>20-30</td>
+                    <td>female</td>
+                    <td>2015</td>
+                    <td>10</td>
+                    <td>719.</td>
+                    <td>1:04.18,2</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Poeppler Sonja</td>
+                    <td>1971</td>
+                    <td>46</td>
+                    <td>40-50</td>
+                    <td>female</td>
+                    <td>2015</td>
+                    <td>21</td>
+                    <td>321.</td>
+                    <td>2:17.28,8</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Rubrecht Nicolas</td>
+                    <td>1982</td>
+                    <td>35</td>
+                    <td>30-40</td>
+                    <td>male</td>
+                    <td>2015</td>
+                    <td>10</td>
+                    <td>297.</td>
+                    <td>46.28,7</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Valiquer Frédéric</td>
+                    <td>1982</td>
+                    <td>35</td>
+                    <td>30-40</td>
+                    <td>male</td>
+                    <td>2015</td>
+                    <td>10</td>
+                    <td>49.</td>
+                    <td>37.56,7</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Vetter Odette</td>
+                    <td>1948</td>
+                    <td>69</td>
+                    <td>other</td>
+                    <td>female</td>
+                    <td>2015</td>
+                    <td>10</td>
+                    <td>19.</td>
+                    <td>1:00.25,9</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Amaral Antonio</td>
+                    <td>1978</td>
+                    <td>39</td>
+                    <td>30-40</td>
+                    <td>male</td>
+                    <td>2016</td>
+                    <td>10</td>
+                    <td>632.</td>
+                    <td>58.31,8</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Bagnoud Sabrina</td>
+                    <td>1972</td>
+                    <td>45</td>
+                    <td>40-50</td>
+                    <td>female</td>
+                    <td>2016</td>
+                    <td>10</td>
+                    <td>352.</td>
+                    <td>1:01.34,4</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Beysard Paul-Alain</td>
+                    <td>1950</td>
+                    <td>67</td>
+                    <td>other</td>
+                    <td>male</td>
+                    <td>2016</td>
+                    <td>10</td>
+                    <td>5.</td>
+                    <td>40.33,8</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Christen Jérôme</td>
+                    <td>1975</td>
+                    <td>42</td>
+                    <td>40-50</td>
+                    <td>male</td>
+                    <td>2016</td>
+                    <td>21</td>
+                    <td>420.</td>
+                    <td>1:50.13,1</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Coupy Baptiste</td>
+                    <td>1988</td>
+                    <td>29</td>
+                    <td>20-30</td>
+                    <td>male</td>
+                    <td>2016</td>
+                    <td>21</td>
+                    <td>37.</td>
+                    <td>1:24.54,0</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Cremone Maria</td>
+                    <td>1965</td>
+                    <td>52</td>
+                    <td>other</td>
+                    <td>female</td>
+                    <td>2016</td>
+                    <td>21</td>
+                    <td>54.</td>
+                    <td>1:56.00,5</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Décaillet Frédérique</td>
+                    <td>1988</td>
+                    <td>29</td>
+                    <td>20-30</td>
+                    <td>female</td>
+                    <td>2016</td>
+                    <td>21</td>
+                    <td>350.</td>
+                    <td>2:18.41,4</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Favre Ludovic</td>
+                    <td>1985</td>
+                    <td>32</td>
+                    <td>30-40</td>
+                    <td>male</td>
+                    <td>2016</td>
+                    <td>10</td>
+                    <td>122.</td>
+                    <td>41.50,5</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Favre Sandrine</td>
+                    <td>1995</td>
+                    <td>22</td>
+                    <td>20-30</td>
+                    <td>female</td>
+                    <td>2016</td>
+                    <td>21</td>
+                    <td>199.</td>
+                    <td>2:01.22,9</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Germini Tony</td>
+                    <td>1974</td>
+                    <td>43</td>
+                    <td>40-50</td>
+                    <td>male</td>
+                    <td>2016</td>
+                    <td>10</td>
+                    <td>140.</td>
+                    <td>45.14,7</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Imhof Ursula</td>
+                    <td>1947</td>
+                    <td>70</td>
+                    <td>other</td>
+                    <td>female</td>
+                    <td>2016</td>
+                    <td>10</td>
+                    <td>54.</td>
+                    <td>1:08.04,5</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>In-Albon Clément</td>
+                    <td>1992</td>
+                    <td>25</td>
+                    <td>20-30</td>
+                    <td>male</td>
+                    <td>2016</td>
+                    <td>21</td>
+                    <td>387.</td>
+                    <td>1:51.01,2</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Lefevre Harold</td>
+                    <td>1978</td>
+                    <td>39</td>
+                    <td>30-40</td>
+                    <td>male</td>
+                    <td>2016</td>
+                    <td>21</td>
+                    <td>392.</td>
+                    <td>1:44.52,0</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Lopez Clementine</td>
+                    <td>1993</td>
+                    <td>24</td>
+                    <td>20-30</td>
+                    <td>female</td>
+                    <td>2016</td>
+                    <td>10</td>
+                    <td>199.</td>
+                    <td>52.26,9</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Michel Dominique</td>
+                    <td>1966</td>
+                    <td>51</td>
+                    <td>other</td>
+                    <td>male</td>
+                    <td>2016</td>
+                    <td>42</td>
+                    <td>3.</td>
+                    <td>3:00.35,8</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Oreiller Joaquim</td>
+                    <td>1984</td>
+                    <td>33</td>
+                    <td>30-40</td>
+                    <td>male</td>
+                    <td>2016</td>
+                    <td>21</td>
+                    <td>643.</td>
+                    <td>1:56.04,9</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Rouiller Michael</td>
+                    <td>1986</td>
+                    <td>31</td>
+                    <td>30-40</td>
+                    <td>male</td>
+                    <td>2016</td>
+                    <td>21</td>
+                    <td>33.</td>
+                    <td>1:22.53,6</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Rouvinet Clémence</td>
+                    <td>1990</td>
+                    <td>27</td>
+                    <td>20-30</td>
+                    <td>female</td>
+                    <td>2016</td>
+                    <td>10</td>
+                    <td>680.</td>
+                    <td>1:03.36,6</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Ruf Stefan</td>
+                    <td>1958</td>
+                    <td>59</td>
+                    <td>other</td>
+                    <td>male</td>
+                    <td>2016</td>
+                    <td>42</td>
+                    <td>40.</td>
+                    <td>3:34.42,5</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Valiquer Frédéric</td>
+                    <td>1982</td>
+                    <td>35</td>
+                    <td>30-40</td>
+                    <td>male</td>
+                    <td>2016</td>
+                    <td>21</td>
+                    <td>183.</td>
+                    <td>1:36.05,0</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Crisostomo Luis</td>
+                    <td>1960</td>
+                    <td>57</td>
+                    <td>other</td>
+                    <td>male</td>
+                    <td>2007</td>
+                    <td>10</td>
+                    <td>196.</td>
+                    <td>49.57,1</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Friedl Laurent</td>
+                    <td>1977</td>
+                    <td>40</td>
+                    <td>40-50</td>
+                    <td>male</td>
+                    <td>2007</td>
+                    <td>10</td>
+                    <td>73.</td>
+                    <td>42.30,7</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Michel Dominique</td>
+                    <td>1966</td>
+                    <td>51</td>
+                    <td>other</td>
+                    <td>male</td>
+                    <td>2007</td>
+                    <td>42</td>
+                    <td>16.</td>
+                    <td>2:58.19,0</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Crisostomo Luis</td>
+                    <td>1960</td>
+                    <td>57</td>
+                    <td>other</td>
+                    <td>male</td>
+                    <td>2004</td>
+                    <td>10</td>
+                    <td>172.</td>
+                    <td>50.15,1</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Michel Dominique</td>
+                    <td>1966</td>
+                    <td>51</td>
+                    <td>other</td>
+                    <td>male</td>
+                    <td>2004</td>
+                    <td>42</td>
+                    <td>65.</td>
+                    <td>3:09.54,0</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Rudaz Christophe</td>
+                    <td>1973</td>
+                    <td>44</td>
+                    <td>40-50</td>
+                    <td>male</td>
+                    <td>2004</td>
+                    <td>42</td>
+                    <td>480.</td>
+                    <td>4:48.35,5</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Seara Ricardo</td>
+                    <td>1979</td>
+                    <td>38</td>
+                    <td>30-40</td>
+                    <td>male</td>
+                    <td>2004</td>
+                    <td>10</td>
+                    <td>15.</td>
+                    <td>33.19,2</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Theytaz Jean-Pierre</td>
+                    <td>1983</td>
+                    <td>34</td>
+                    <td>30-40</td>
+                    <td>male</td>
+                    <td>2004</td>
+                    <td>21</td>
+                    <td>26.</td>
+                    <td>1:16.13,7</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Weber Francois</td>
+                    <td>1979</td>
+                    <td>38</td>
+                    <td>30-40</td>
+                    <td>male</td>
+                    <td>2004</td>
+                    <td>42</td>
+                    <td>127.</td>
+                    <td>4:30.27,3</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Zufferey Christian</td>
+                    <td>1965</td>
+                    <td>52</td>
+                    <td>other</td>
+                    <td>male</td>
+                    <td>2004</td>
+                    <td>21</td>
+                    <td>513.</td>
+                    <td>1:53.54,7</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Amos Danièle</td>
+                    <td>1959</td>
+                    <td>58</td>
+                    <td>other</td>
+                    <td>female</td>
+                    <td>2005</td>
+                    <td>21</td>
+                    <td>56.</td>
+                    <td>1:49.25,9</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+              <tr>
+                    <td>Amos Stéphane</td>
+                    <td>1956</td>
+                    <td>61</td>
+                    <td>other</td>
+                    <td>male</td>
+                    <td>2005</td>
+                    <td>21</td>
+                    <td>317.</td>
+                    <td>1:46.18,3</td>
+                    <td>Sierre</td>
+                    <td>VS</td>
+                    <td>CH</td>
+                    <td>46.29413110000001</td>
+                    <td>7.533536199999999</td>
+              </tr>
+            </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fa fa-angle-up"></i>
+    </a>
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Page level plugin JavaScript-->
+    <script src="vendor/datatables/jquery.dataTables.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+
+    <!-- Custom scripts for this page-->
+    <script src="js/sb-admin-datatables.min.js"></script>
+  </div>
+</body>
+
+</html>

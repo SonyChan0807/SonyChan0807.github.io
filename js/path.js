@@ -15,8 +15,17 @@ const grayscale = L.tileLayer(mbUrl, {
         attribution: mbAttr
     });
 
+const gpxPath = 'data/mapstogpx20171127_110151.gpx';
+
 
 function init() {
+    let gpx = genGPXFile(gpxPath,"1:20.20,0", "2017");
+    
+    gpx.then((data) => {drawMap(data)}
+  )
+}
+
+function drawMap(data){
     if(map != undefined) {map.remove();}
     
     map = L.map('pathmap', {
@@ -29,7 +38,7 @@ function init() {
 
     // start of TimeDimension manual instantiation
     var timeDimension = new L.TimeDimension({
-        period: "PT5M",
+        period: "PT10S",
     });
     // helper to share the timeDimension object between all layers
     map.timeDimension = timeDimension;
@@ -72,23 +81,7 @@ function init() {
         }
     });
 
-    var customLayer2 = L.geoJson(null, {
-        pointToLayer: function (feature, latLng) {
-            if (feature.properties.hasOwnProperty('last')) {
-                return new L.Marker(latLng, {
-                    icon: icon
-                });
-            }
-            return L.circleMarker(latLng);
-        }
-    });
-
-    var gpxLayer = omnivore.gpx('data/Running_02.gpx', null, customLayer).on('ready', function () {
-        map.fitBounds(gpxLayer.getBounds(), {
-            paddingBottomRight: [40, 40]
-        });
-    });
-    var gpxLayer2 = omnivore.gpx('data/VeveyMarathon.gpx', null, customLayer).on('ready', function () {
+    var gpxLayer = omnivore.gpx.parse(data).on('ready', function () {
         map.fitBounds(gpxLayer.getBounds(), {
             paddingBottomRight: [40, 40]
         });
@@ -100,21 +93,52 @@ function init() {
         waitForReady: true
     });
 
-    var gpxTimeLayer2 = L.timeDimension.layer.geoJson(gpxLayer2, {
-        updateTimeDimension: true,
-        addlastPoint: true,
-        waitForReady: true
-    });
-
-
-
     var overlayMaps = {
         "GPX Layer": gpxTimeLayer,
     };
     L.control.layers(overlayMaps).addTo(map);
     gpxTimeLayer.addTo(map);
-
 }
+
+function genGPXFile(filePath,record, startTime) {
+    // let newGpx;
+    let secs = getSecs(record);
+    console.log(secs);
+    let newGPX = new Promise( (resolve, reject) =>{
+        $.ajax({
+            url: filePath,
+            success: function (data) {
+                let trks = $(data).find("trkpt");
+                let timeGap = secs / trks.length;
+                console.log(timeGap);
+                let multiplyer = 0;
+                let isoTime = moment(`${startTime}-01-01 8:00:00`);
+                console.log(isoTime);
+                console.log(data);
+                trks.each(function() {
+                    let trk = $(this);
+                    let timeContext = isoTime.add(timeGap, 'seconds').toISOString();
+                    // console.log(timeContext);
+                    trk.append(`<time>${timeContext}</time>`)
+                    multiplyer += 1;
+                });
+                resolve(data);
+                console.log(data);
+            }
+        });
+    });
+    return newGPX;
+}
+
+// "1:56.27,0"
+function getSecs(record) {
+    let timeStr = record.split(",")[0];
+    let hour = parseInt(timeStr.split(':')[0]);
+    let min = parseInt(timeStr.split(':')[1].split('.')[0]);
+    let sec = parseInt(timeStr.split('.')[1]);
+    return hour * 3600 + min * 60 + sec;
+}
+
 
 
 window.addEventListener('load', init);

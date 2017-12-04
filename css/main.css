@@ -4,16 +4,18 @@
 }
 
 #pathmap {
-  width: 60%;
+  width: 62%;
   height: 100%;
   float: left;
+  margin: 10px 5px;
 }
 #addMenu {
-  width: 30%; 
+  width: 36%; 
+  height: 100%;
   line-height: 100%; 
-  padding: 10px; 
-  border: 2px blue solid; 
-  margin-right: 20px; 
+  padding: 0px; 
+  /* border: 2px blue solid;  */
+  margin: 5px 5px; 
   float: left;
 }
 

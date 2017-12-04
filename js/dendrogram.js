@@ -1,39 +1,52 @@
+console.log(d3.schemeCategory20b);
+// Year slider
+var mySlider = new Slider("#ex21", {
+  ticks:[2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017],
+  ticks_labels:[2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017]
+});
+
+mySlider.on('change', function(){
+  var value = mySlider.getValue();
+  updateDendrogram(value);
+});
+
 updateDendrogram(2017);
 
+d3.selectAll("svg").remove();
+var margin = {top: 0, right: 10, bottom: 0, left: 50};
+var width = 1000;
+var height = 500;
+
+var svg = d3.select("#dendrogram")
+            .append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom);
+
+var g = svg.append("g").attr("transform", "translate(20,0)");
+
+var xScale =  d3.scaleLinear()
+                .domain([0,1200])
+                .range([0,600]);
+
+var tree = d3.cluster()
+             .size([height, width - 600])
+             .separation(function separate(a, b) {
+                  return a.parent == b.parent
+                  || a.parent.parent == b.parent
+                  || a.parent == b.parent.parent ? 2 : 3;
+              });
+
+var stratify = d3.stratify()
+                 .parentId(function(d) { return d.id.substring(0, d.id.lastIndexOf(".")); });
+
 function updateDendrogram(value){
-  d3.selectAll("svg").remove();
 
-  var width = 1000;
-  var height = 800;
-
-  var svg = d3.select("#dendrogram")
-              .append("svg")
-              .attr("width", width)
-              .attr("height", height);
-
-  var g = svg.append("g").attr("transform", "translate(20,0)");
-
-  var xScale =  d3.scaleLinear()
-                  .domain([0,1200])
-                  .range([0,600]);
-
-  var tree = d3.cluster()
-               .size([height, width - 600])
-               .separation(function separate(a, b) {
-                    return a.parent == b.parent
-                    || a.parent.parent == b.parent
-                    || a.parent == b.parent.parent ? 2 : 3;
-                });
-
-  var stratify = d3.stratify()
-                   .parentId(function(d) { return d.id.substring(0, d.id.lastIndexOf(".")); });
-
-  d3.csv("data/marathon-data-with-geo.csv", row, function(error, data) {
+  d3.csv("data/marathon_data.csv", row, function(error, data) {
       if (error) throw error;
       //console.log(data);
-      var categories = ['10','21','42'],
-          ages = ['20','30','40'],
-          genders = ['-H','-D'];
+      var categories = [10,21,42],
+          age_groups = ['20-30','30-40','40-50','other'],
+          genders = ['male','female'];
 
       var updateData = [{'id':value.toString(),'value':'','color':''}]
 
@@ -43,43 +56,36 @@ function updateDendrogram(value){
           chooseDataByYearObject = chooseDataByYear.top(Infinity);
 
       for (var i = 0; i < categories.length; i++){
-        updateData.push({'id':value+'.'+categories[i]+'km','value':'','color':''});
+        updateData.push({'id':value+'.'+categories[i]+' km','value':'','color':''});
 
         var yearData = crossfilter(chooseDataByYearObject),
             yearDataByRace = yearData.dimension(function(d) { return d.category; }),
-            chooseDataByRace = yearDataByRace.filter(function(d) { return d.startsWith(categories[i])}),
+            chooseDataByRace = yearDataByRace.filter(function(d) { return d == categories[i]; }),
             chooseDataByRaceObject = chooseDataByRace.top(Infinity);
 
-        updateData.push({'id':value+'.'+categories[i]+'km'+'.Age group 20','value':'','color':''});
-        updateData.push({'id':value+'.'+categories[i]+'km'+'.Age group 30','value':'','color':''});
-        updateData.push({'id':value+'.'+categories[i]+'km'+'.Age group 40','value':'','color':''});
-        updateData.push({'id':value+'.'+categories[i]+'km'+'.Other','value':'','color':''});
+        updateData.push({'id':value+'.'+categories[i]+' km'+'.Age group 20-30','value':'','color':''});
+        updateData.push({'id':value+'.'+categories[i]+' km'+'.Age group 30-40','value':'','color':''});
+        updateData.push({'id':value+'.'+categories[i]+' km'+'.Age group 40-50','value':'','color':''});
+        updateData.push({'id':value+'.'+categories[i]+' km'+'.Age group other','value':'','color':''});
 
         for (var j = 0; j < genders.length; j++){
           var raceData = crossfilter(chooseDataByRaceObject),
-              raceDataByGender = raceData.dimension(function(d) { return d.category; }),
-              chooseDataByGender = raceDataByGender.filter(function(d) { return d.startsWith(categories[i]+genders[j])}),
+              raceDataByGender = raceData.dimension(function(d) { return d.gender; }),
+              chooseDataByGender = raceDataByGender.filter(function(d) { return d == genders[j]; }),
               chooseDataByGenderObject = chooseDataByGender.top(Infinity);
 
-          var rest = chooseDataByGenderObject.length;
+          //var rest = chooseDataByGenderObject.length;
 
-          for (var p = 0; p < ages.length; p++){
+          for (var p = 0; p < age_groups.length; p++){
             var genderData = crossfilter(chooseDataByGenderObject),
-                genderDataByAge = genderData.dimension(function(d) { return d.category; }),
-                chooseDataByAge = genderDataByAge.filter(function(d) { return d.endsWith(ages[p])}),
+                genderDataByAge = genderData.dimension(function(d) { return d.age_group; }),
+                chooseDataByAge = genderDataByAge.filter(function(d) { return d == age_groups[p]; }),
                 chooseDataByAgeObject = chooseDataByAge.top(Infinity);
-            if (genders[j] == '-H'){
-              updateData.push({'id':value+'.'+categories[i]+'km'+'.Age group '+ages[p]+'.M','value':chooseDataByAgeObject.length,'color':'#E54F24'});
+            if (genders[j] == 'male'){
+              updateData.push({'id':value+'.'+categories[i]+' km'+'.Age group '+age_groups[p]+'.M','value':chooseDataByAgeObject.length,'color':'#b5cf6b'});
             }else{
-              updateData.push({'id':value+'.'+categories[i]+'km'+'.Age group '+ages[p]+'.F','value':chooseDataByAgeObject.length,'color':'#0678BE'});
+              updateData.push({'id':value+'.'+categories[i]+' km'+'.Age group '+age_groups[p]+'.F','value':chooseDataByAgeObject.length,'color':'#d6616b'});
             }
-            rest = rest - chooseDataByAgeObject.length
-          }
-
-          if (genders[j] == '-H'){
-            updateData.push({'id':value+'.'+categories[i]+'km'+'.Other.M','value':rest,'color':'#E54F24'});
-          }else{
-            updateData.push({'id':value+'.'+categories[i]+'km'+'.Other.F','value':rest,'color':'#0678BE'});
           }
         }
       }
@@ -88,8 +94,12 @@ function updateDendrogram(value){
       var root = stratify(updateData);
       tree(root);
 
+      d3.selectAll(".link").remove();
+      d3.selectAll(".node").remove();
+      d3.selectAll(".ballG").remove();
+
       // Draw every datum a line connecting to its parent.
-      var link = g.selectAll(".link") //css
+      var link = g.selectAll(".link")
                   .data(root.descendants().slice(1))
                   .enter().append("path")
                   .attr("class", "link")
@@ -101,7 +111,7 @@ function updateDendrogram(value){
                   });
 
       // Setup position for every datum; Applying different css classes to parents and leafs.
-      var node = g.selectAll(".node") //css
+      var node = g.selectAll(".node")
                   .data(root.descendants())
                   .enter().append("g")
                   .attr("class", function(d) { return "node" + (d.children ? " node--internal" : " node--leaf"); }) //css
@@ -121,7 +131,7 @@ function updateDendrogram(value){
               .attr("class","shadow")
               .style("fill", function (d) {return d.data.color;})
               .attr("width", 2)
-              .attr("height", 25)
+              .attr("height", 15)
               .attr("rx", 2)
               .attr("ry", 2)
               .transition()
@@ -129,8 +139,8 @@ function updateDendrogram(value){
                   .attr("width", function (d) {return xScale(d.data.value);});
 
       leafNodeG.append("text")
-              .attr("dy", 19.5)
-              .attr("x", 8)
+              .attr("dy", 12)
+              .attr("x", 5)
               .style("text-anchor", "start")
               .text(function (d) {
                   return d.data.id.substring(d.data.id.lastIndexOf(".") + 1); //the last part after .
@@ -174,12 +184,12 @@ function updateDendrogram(value){
           var ballGMovement = ballG.transition()
                   .duration(400)
                   .attr("transform", "translate(" + (d.y
-                          + xScale(d.data.value) + 90) + ","
-                          + (d.x + 1.5) + ")");
+                          + xScale(d.data.value) + 80) + ","
+                          + (d.x + 1) + ")");
 
           ballGMovement.select("circle")
                   .style("fill", d.data.color)
-                  .attr("r", 18);
+                  .attr("r", 16);
 
           ballGMovement.select("text")
                   .delay(300)
@@ -191,12 +201,14 @@ function updateDendrogram(value){
           leafG.select("rect")
                   .attr("stroke-width","0");
       }
-
   });
 }
+
 function row(d) {
-    return {
-        category: d['catégorie'],
-        year: +d['race-year'],
-    };
+  return {
+      category: +d['category'],
+      gender: d['gender'],
+      year: +d['race year'],
+      age_group: d['age group']
+  };
 }

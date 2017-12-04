@@ -1,9 +1,8 @@
 var currentZoom = 8; //8; //12;
 var map;
+var gpxTimeLayer
 const mbAttr = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
-    '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
     'Imagery © <a href="http://mapbox.com">Mapbox</a>';
-// const mbUrl = `https://api.mapbox.com/styles/v1/sonychan0807/cja9chgrg1e1z2ro2n7p1api4/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic29ueWNoYW4wODA3IiwiYSI6ImNqNGk4ZGEwaDAyOGszM3F3Nzc1bWIxNjcifQ.hUbe7j_iHsjcEhPNLTvxDA`;
 const mbUrl = "https://api.mapbox.com/styles/v1/sonychan0807/cjaclg94x4f3z2rsemlyvyifx/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic29ueWNoYW4wODA3IiwiYSI6ImNqNGk4ZGEwaDAyOGszM3F3Nzc1bWIxNjcifQ.hUbe7j_iHsjcEhPNLTvxDA";
 
 const grayscale = L.tileLayer(mbUrl, {
@@ -15,7 +14,7 @@ const grayscale = L.tileLayer(mbUrl, {
         attribution: mbAttr
     });
 
-const gpxPath = 'data/mapstogpx20171127_110151.gpx';
+const gpxPath = 'data/marathon_42km.gpx';
 
 
 function init() {
@@ -120,20 +119,21 @@ function drawMap(data){
         pointToLayer: function (feature, latLng) {
             if (feature.properties.hasOwnProperty('last')) {
                 return new L.Marker(latLng, {
-                    icon: icon
+                    icon: icon,
+                    title: "test"
                 });
             }
             return L.circleMarker(latLng);
         }
     });
 
-    var gpxLayer = omnivore.gpx.parse(data).on('ready', function () {
+    var gpxLayer = omnivore.gpx.parse(data, null,customLayer ).on('ready', function () {
         map.fitBounds(gpxLayer.getBounds(), {
             paddingBottomRight: [40, 40]
         });
     });
 
-    var gpxTimeLayer = L.timeDimension.layer.geoJson(gpxLayer, {
+    gpxTimeLayer = L.timeDimension.layer.geoJson(gpxLayer, {
         updateTimeDimension: true,
         addlastPoint: true,
         waitForReady: true
@@ -183,6 +183,13 @@ function getSecs(record) {
     let min = parseInt(timeStr.split(':')[1].split('.')[0]);
     let sec = parseInt(timeStr.split('.')[1]);
     return hour * 3600 + min * 60 + sec;
+}
+
+function deleteLayer() {
+    gpxTimeLayer.remove();
+}
+function addLayer() {
+    gpxTimeLayer.addTo(map)
 }
 
 

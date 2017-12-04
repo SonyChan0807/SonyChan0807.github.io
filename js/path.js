@@ -19,10 +19,56 @@ const gpxPath = 'data/mapstogpx20171127_110151.gpx';
 
 
 function init() {
+    document.getElementById("addGroup").addEventListener('click', addGroup);
+    document.getElementById("addPerson").addEventListener('click', addPerson);
     let gpx = genGPXFile(gpxPath,"1:20.20,0", "2017");
     
     gpx.then((data) => {drawMap(data)}
+
+
   )
+}
+
+function addGroup(){
+    let year = $("#year option:selected").text();
+    let dist = $("#dist option:selected").text();
+    let gender = $("#g_gender option:selected").text();
+    let aGroup = $("#age_group option:selected").text();
+    let aSpeed = $("#age_speed option:selected").text();
+
+    addInfo("group", year, dist, gender);
+}
+function addPerson(){
+    let year = $("#year option:selected").text();
+    let dist = $("#dist option:selected").text();
+    let gender = $("#per_gender option:selected").text();
+    let name = $('#name').val().trim();
+    
+    if (name == "") {
+        alert("Please Input a name");
+        return;
+    }
+
+    addInfo("person",year, dist, gender, name);
+}
+
+
+function addInfo(type, year, dist, gender, name = "", aGroup = "", aSpeed = "") {
+    if (type == "group"){
+        let tagId = `info_${year}_${dist}_${gender}_${aGroup}_${aSpeed}`
+        let htmlStr = `<li class="list-group-item" id="${tagId}">${year}${dist}${gender}
+        <button type="button" class="btn btn-danger btn-sm" id="test" onclick="deleteList('${tagId}')">Delete</button></li>`
+        $("#runner_list").append(htmlStr);
+    }else {
+        let tagId = `info_${year}_${dist}_${gender}_${name}`
+        let htmlStr = `<li class="list-group-item" id="${tagId}">${year}${dist}${gender}
+        <button type="button" class="btn btn-danger btn-sm" id="test" onclick="deleteList('${tagId}')">Delete</button></li>`
+        $("#runner_list").append(htmlStr);
+    }
+
+}
+function deleteList(id) {
+    $(`#${id}`).remove();
 }
 
 function drawMap(data){

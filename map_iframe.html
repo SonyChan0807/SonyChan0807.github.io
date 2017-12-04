@@ -9,15 +9,11 @@
 
 <body>
 
-    <select onchange='drawMap(this.value)'>
-        <option value="2017">2017</option>
-        <option value="2016">2016</option>
-        <option value="2015">2015</option>
-        <option value="2014">2014</option>
+    <select id="selection" onchange='updateGraph(this.value)'>
     </select>
-    <div id="geomap">
-
-    </div>
+    <div id="barchart_age" ></div>
+    <div id="geomap"></div>
+    <div id="barchart_city" ></div>
     <script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.heat/0.2.0/leaflet-heat.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js"></script>
@@ -27,8 +23,10 @@
     <script type="text/javascript" src="https://cdn.rawgit.com/nezasa/iso8601-js-period/master/iso8601.min.js"></script>
     <script type="text/javascript" src="https://cdn.rawgit.com/socib/Leaflet.TimeDimension/master/dist/leaflet.timedimension.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
-    <script src="js/TileLayer.Grayscale.js"></script>
-    <script type="text/javascript" src='js/geomap_new.js'></script>
+    <!-- <script src="js/TileLayer.Grayscale.js"></script> -->
+    <script type="text/javascript" src='js/geomap_all.js'></script>
+    <!-- <script type="text/javascript" src='js/geobar_age.js'></script> -->
+    <!-- <script type="text/javascript" src='js/geobar_city.js'></script> -->
 
 
 </body>

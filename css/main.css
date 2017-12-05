@@ -17,6 +17,11 @@
   /* border: 2px blue solid;  */
   margin: 5px 5px; 
   float: left;
+  overflow: scroll;
+}
+
+#add_menu {
+  overflow: scroll;
 }
 
 
@@ -135,4 +140,9 @@ rect.highlight {
   margin-left:auto;
   margin-right:2px;
   float: left;
+}
+
+.error_msg{
+  font-size: 20 px;
+  color: red;
 }

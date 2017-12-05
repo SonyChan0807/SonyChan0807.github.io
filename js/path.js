@@ -1,4 +1,4 @@
-var currentZoom = 8; //8; //12;
+var currentZoom = 11; //8; //12;
 var map;
 var gxpTimeLayerStore = {}
 
@@ -6,10 +6,8 @@ var gxpTimeLayerStore = {}
 function init() {
     document.getElementById("addGroup").addEventListener('click', addGroup);
     document.getElementById("addPerson").addEventListener('click', addPerson);
-
+    console.log(gxpTimeLayerStore);
     initMap();
-
-
 }
 
 function addGroup() {
@@ -20,8 +18,18 @@ function addGroup() {
     let aSpeed = $("#age_speed option:selected").text();
     let tagId = `info_${year}_${dist}_${gender}_${aGroup}_${aSpeed}`
     let iconParams = genIconParams();
-
-    addInfo("group", tagId, year, dist, gender, "", aGroup, aSpeed);
+    
+    toggleErrorMSG("group_error", 0);
+    toggleErrorMSG("person_error", 0);
+    if ( gxpTimeLayerStore[tagId] != undefined) {
+        toggleErrorMSG("group_error", 1)
+        return;
+    }else if (Object.keys(gxpTimeLayerStore).length === 5) {
+        console.log(Object.keys(gxpTimeLayerStore).length);
+        console.log("test");
+        toggleErrorMSG("group_error", 3)
+        return;
+    }
     addGroupLayer(tagId, year, dist.split("k")[0], gender, aGroup, aSpeed, iconParams);
 }
 
@@ -32,24 +40,36 @@ function addPerson() {
     let name = $('#name').val().trim();
     let iconParams = genIconParams();
     let tagId = `info_${year}_${dist}_${gender}_${name}`
-    if (name == "") {
-        alert("Please Input a name");
+    toggleErrorMSG("person_error", 0);
+    toggleErrorMSG("group_error", 0);
+    if ( gxpTimeLayerStore[tagId] != undefined) {
+        toggleErrorMSG("person_error", 1)
+        return;
+    }else if (Object.keys(gxpTimeLayerStore).length === 5) {
+        toggleErrorMSG("person_error", 3)
+        return;
+    }else if (name == "") {
+        toggleErrorMSG("person_error", 4)
         return;
     }
-
-    addInfo("person", tagId, year, dist, gender, name);
+   
     addPersonLayer(tagId, year, dist.split("k")[0], gender, name, iconParams)
 }
 
 
-function addInfo(type, tagId, year, dist, gender, name = "", aGroup = "", aSpeed = "", ) {
-
+function addInfo(type, tagId, year, dist, gender, secs, iconParams, name = "", aGroup = "", aSpeed = "") {
     let htmlStr = undefined
+    let record = moment.utc(secs * 1000).format('HH:mm:ss')
+
     if (type == "group") {
-        htmlStr = `<li class="list-group-item" id="${tagId}">${year}${dist}${gender}
+        // console.log(record)
+        htmlStr = `<li class="list-group-item" id="${tagId}"><img src="${iconParams.imgSrc}">
+        <p>${year}-${dist}-${gender}-${aGroup}-${ aSpeed}-${record}<p>
         <button type="button" class="btn btn-danger btn-sm" id="test" onclick="deleteList('${tagId}')">Delete</button></li>`
     } else {
-        htmlStr = `<li class="list-group-item" id="${tagId}">${year}${dist}${gender}
+        console.log(name);
+        htmlStr = `<li class="list-group-item" id="${tagId}"><img src="${iconParams.imgSrc}">
+        <p>${year}-${dist}-${gender}-${name}-${record}</p>
         <button type="button" class="btn btn-danger btn-sm" id="test" onclick="deleteList('${tagId}')">Delete</button></li>`
     }
     $("#runner_list").append(htmlStr);
@@ -58,7 +78,7 @@ function addInfo(type, tagId, year, dist, gender, name = "", aGroup = "", aSpeed
 function genIconParams() {
     let colors = ["#3366cc", "#dc3912", "#ff9900", "#109618", "#990099", "#0099c6", "#dd4477", "#66aa00", "#b82e2e", "#316395", "#994499", "#22aa99", "#aaaa11", "#6633cc", "#e67300", "#8b0707", "#651067", "#329262", "#5574a6", "#3b3eac"]
     let dashes = ["5, 5", "5, 10", "10, 5", "5, 1", "1, 5", "0.9", "15, 10, 5", "15, 10, 5, 10", "15, 10, 5, 10, 15", "5, 5, 1, 5"];
-    let imgSrcs = ['img/running.png', 'img/running.png', 'img/running.png'];
+    let imgSrcs = ['img/runner-blue.png', 'img/runner-red.png', 'img/runner-green.png', 'img/runner-orange.png', 'img/runner-purple.png'];
 
     let params = {
         'color': colors[Math.floor(Math.random() * colors.length)],
@@ -76,13 +96,17 @@ function deleteList(id) {
 
     // Remove layer
 
-    console.log('layer delete')
-    console.log(id);
-    console.log(gxpTimeLayerStore);
-    console.log(gxpTimeLayerStore[id]);
-    console.log(gxpTimeLayerStore[Object.keys(gxpTimeLayerStore)[0]])
+    // console.log('layer delete')
+    // console.log(id);
+    // console.log(gxpTimeLayerStore);
+    // console.log(gxpTimeLayerStore[id]);
+    // console.log(gxpTimeLayerStore[Object.keys(gxpTimeLayerStore)[0]])
     gxpTimeLayerStore[id].remove();
     delete gxpTimeLayerStore[id];
+    
+    initMap();
+    Object.keys(gxpTimeLayerStore).forEach(key => gxpTimeLayerStore[key].addTo(map));
+
 }
 
 function initMap() {
@@ -105,7 +129,7 @@ function initMap() {
 
     map = L.map('pathmap', {
         layers: [grayscale]
-    }).setView([46.80111, 8.22667], currentZoom);
+    }).setView([46.494418, 6.743643], currentZoom);
 
 
     var startDate = new Date();
@@ -149,14 +173,15 @@ function addGroupLayer(tagId, year, dist, gender, aGroup, aSpeed, iconParams) {
         "Average": "avg"
     };
     d3.csv('data/marathon_max_min_avg.csv', (data) => {
-        console.log(data);
-        console.log(year + dist + gender + aGroup + aSpeed);
+
         let selectedData = data.filter(d => d["race year"] == year && d["category"] == dist &&
             d["age group"] == aGroup.toLowerCase() && d['gender'] == gender.toLowerCase());
         console.log(speed[aSpeed]);
         console.log(selectedData);
         let timeSecs = selectedData[0][speed[aSpeed]];
         let gpxFileName = `data/marathon_${dist}.gpx`;
+        addInfo("group", tagId, year, dist, gender, timeSecs, iconParams, "", aGroup, aSpeed);
+
         let gpx = genGPXFile(gpxFileName, timeSecs, "2017");
         gpx.then((data) => {
             addRunner(data, iconParams, tagId);
@@ -166,14 +191,19 @@ function addGroupLayer(tagId, year, dist, gender, aGroup, aSpeed, iconParams) {
 
 function addPersonLayer(tagId, year, dist, gender, name, iconParams) {
     d3.csv('data/marathon_data.csv', (data) => {
-        console.log(data);
-        console.log(year + dist + gender + name);
-        let selectedData = data.filter(d => d["race year"] == year && d["name"] == name);
+        let selectedData = data.filter(d => d["race year"] == year && d["category"] == dist &&
+            d["name"] == name && d['gender'] == gender.toLowerCase());
+        if (selectedData.length == 0){
+            toggleErrorMSG("person_error", 2);
+            return;
+        }
         console.log(selectedData);
         let time = selectedData[0]['time'];
         console.log(time);
         let timeSecs = getSecs(time);
         console.log(timeSecs);
+        addInfo("person", tagId, year, dist, gender, timeSecs, iconParams, name, "", "");
+
         let gpxFileName = `data/marathon_${dist}.gpx`;
         let gpx = genGPXFile(gpxFileName, timeSecs, "2017");
         gpx.then((data) => {
@@ -192,25 +222,24 @@ function addRunner(data, iconParams, layerID) {
     });
 
     let customLayer = L.geoJson(null, {
-        pointToLayer: function (feature, latLng) {
+        pointToLayer: (feature, latLng) => {
             if (feature.properties.hasOwnProperty('last')) {
                 return new L.Marker(latLng, {
-                    icon: icon ,
-                    title: "test",  
+                    icon: icon,
+                    title: "test",
                 });
             }
             return L.circleMarker(latLng);
         },
-        style: function(feature) {
+        style: (feature) => {
             return {
-                
                 color: iconParams.color,
                 dashArray: iconParams.dash
             }
         }
     });
 
-    let gpxLayer = omnivore.gpx.parse(data, null, customLayer).on('ready', function () {
+    let gpxLayer = omnivore.gpx.parse(data, null, customLayer).on('ready', () => {
         map.fitBounds(gpxLayer.getBounds(), {
             paddingBottomRight: [40, 40]
         });
@@ -242,8 +271,6 @@ function genGPXFile(filePath, secs, startTime) {
                 console.log(timeGap);
                 let multiplyer = 0;
                 let isoTime = moment(`${startTime}-01-01 8:00:00`);
-                console.log(isoTime);
-                console.log(data);
                 trks.each(function () {
                     let trk = $(this);
                     let timeContext = isoTime.add(timeGap, 'seconds').toISOString();
@@ -252,7 +279,6 @@ function genGPXFile(filePath, secs, startTime) {
                     multiplyer += 1;
                 });
                 resolve(data);
-                console.log(data);
             }
         });
     });
@@ -268,6 +294,27 @@ function getSecs(record) {
     return hour * 3600 + min * 60 + sec;
 }
 
+function toggleErrorMSG(id, type) {
+    let errorMSG = '';
+    switch (type) {
+        case 1:
+            errorMSG = "Runner is on the map!"
+            break;
+        case 2:
+            errorMSG = "Runner note found"
+            break;
+        case 3:
+            errorMSG = "Excess 5 runners"
+            break;
+        case 4:
+            errorMSG = "Runner's name is empty"
+            break;
+        default:
+            errorMSG = ""
+    }
+    console.log(errorMSG);
+    $(`#${id}`).text(errorMSG);
+}
 
 
 window.addEventListener('load', init);

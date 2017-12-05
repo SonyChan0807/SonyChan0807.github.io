@@ -1,11 +1,11 @@
 var currentZoom = 2; //8; //12;
 var map;
 var feature;
+  
 const mbAttr = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
     '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
     'Imagery © <a href="http://mapbox.com">Mapbox</a>';
 const mbUrl = `https://api.mapbox.com/styles/v1/sonychan0807/cja9chgrg1e1z2ro2n7p1api4/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic29ueWNoYW4wODA3IiwiYSI6ImNqNGk4ZGEwaDAyOGszM3F3Nzc1bWIxNjcifQ.hUbe7j_iHsjcEhPNLTvxDA`;
-// const mbUrl = "https://api.mapbox.com/styles/v1/sonychan0807/cjaclg94x4f3z2rsemlyvyifx/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic29ueWNoYW4wODA3IiwiYSI6ImNqNGk4ZGEwaDAyOGszM3F3Nzc1bWIxNjcifQ.hUbe7j_iHsjcEhPNLTvxDA";
 
 const grayscale = L.tileLayer(mbUrl, {
         id: 'mapbox.light',
@@ -20,19 +20,20 @@ const marathon = "data/marathon_city_counts_top20.csv";
 const marathon_data = "data/marathon_data.csv";
 
 function init() {
-    addSelection();
+    
+    let mapSlider = new Slider("#index_bar",  {
+        ticks:[2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017],
+        ticks_labels:[2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017]
+      });
+      
+    mapSlider.on('change', () =>{
+        let value = mapSlider.getValue();
+        updateGraph(value)
+      });
     updateGraph(2017)
 }
 
 
-
-function addSelection() {
-    let opt = "";
-    for (let i = 2017; i >= 2002; i--) {
-       opt += `<option value="${i}">${i}<option>`
-    }
-    $('#selection').append(opt);
-}
 
 function updateGraph(year) {
     drawMap(year);
@@ -97,7 +98,7 @@ function plotCircle(g, data) {
         .style("stroke", '#ccebc5')
         .style("opacity", 0.5)
         .style("fill", '#ccebc5')
-        .attr('class', (d) => `${d.gender}_${d['age group']}_map`)
+        .attr('class', (d) => `${d.gender}_${d['age group']}_map $`)
         .attr('id', 'map_circle')
         .attr("r", (d) => 5)
     return circles

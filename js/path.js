@@ -10,21 +10,27 @@ function init() {
     initMap();
 }
 
+function reset() {
+    initMap()
+    $('#runner_list').html("");
+    gxpTimeLayerStore = {};
+}
+
 function addGroup() {
     let year = $("#year option:selected").text();
     let dist = $("#dist option:selected").text();
     let gender = $("#g_gender option:selected").text();
     let aGroup = $("#age_group option:selected").text();
     let aSpeed = $("#age_speed option:selected").text();
-    let tagId = `info_${year}_${dist}_${gender}_${aGroup}_${aSpeed}`
+    let tagId = `group_${year}_${dist}_${gender}_${aGroup}_${aSpeed}`
     let iconParams = genIconParams();
-    
+
     toggleErrorMSG("group_error", 0);
     toggleErrorMSG("person_error", 0);
-    if ( gxpTimeLayerStore[tagId] != undefined) {
+    if (gxpTimeLayerStore[tagId] != undefined) {
         toggleErrorMSG("group_error", 1)
         return;
-    }else if (Object.keys(gxpTimeLayerStore).length === 5) {
+    } else if (Object.keys(gxpTimeLayerStore).length === 5) {
         console.log(Object.keys(gxpTimeLayerStore).length);
         console.log("test");
         toggleErrorMSG("group_error", 3)
@@ -39,20 +45,20 @@ function addPerson() {
     let gender = $("#per_gender option:selected").text();
     let name = $('#name').val().trim();
     let iconParams = genIconParams();
-    let tagId = `info_${year}_${dist}_${gender}_${name}`
+    let tagId = `person_${year}_${dist}_${gender}_${name}`
     toggleErrorMSG("person_error", 0);
     toggleErrorMSG("group_error", 0);
-    if ( gxpTimeLayerStore[tagId] != undefined) {
+    if (gxpTimeLayerStore[tagId] != undefined) {
         toggleErrorMSG("person_error", 1)
         return;
-    }else if (Object.keys(gxpTimeLayerStore).length === 5) {
+    } else if (Object.keys(gxpTimeLayerStore).length === 5) {
         toggleErrorMSG("person_error", 3)
         return;
-    }else if (name == "") {
+    } else if (name == "") {
         toggleErrorMSG("person_error", 4)
         return;
     }
-   
+
     addPersonLayer(tagId, year, dist.split("k")[0], gender, name, iconParams)
 }
 
@@ -103,9 +109,13 @@ function deleteList(id) {
     // console.log(gxpTimeLayerStore[Object.keys(gxpTimeLayerStore)[0]])
     gxpTimeLayerStore[id].remove();
     delete gxpTimeLayerStore[id];
-    
+
     initMap();
-    Object.keys(gxpTimeLayerStore).forEach(key => gxpTimeLayerStore[key].addTo(map));
+    let keys = Object.keys(gxpTimeLayerStore);
+    if (key.length) {
+        keys.forEach(key => gxpTimeLayerStore[key].addTo(map));
+    }
+
 
 }
 
@@ -154,9 +164,9 @@ function initMap() {
         timeDimension: timeDimension,
         position: 'bottomleft',
         autoPlay: true,
-        minSpeed: 1,
-        speedStep: 0.5,
-        maxSpeed: 15,
+        minSpeed: 20,
+        speedStep: 1,
+        maxSpeed: 60,
         timeSliderDragUpdate: true
     };
 
@@ -193,7 +203,7 @@ function addPersonLayer(tagId, year, dist, gender, name, iconParams) {
     d3.csv('data/marathon_data.csv', (data) => {
         let selectedData = data.filter(d => d["race year"] == year && d["category"] == dist &&
             d["name"] == name && d['gender'] == gender.toLowerCase());
-        if (selectedData.length == 0){
+        if (selectedData.length == 0) {
             toggleErrorMSG("person_error", 2);
             return;
         }
@@ -218,17 +228,36 @@ function addRunner(data, iconParams, layerID) {
     let icon = L.icon({
         iconUrl: iconParams.imgSrc,
         iconSize: [22, 22],
-        iconAnchor: [5, 25]
+        iconAnchor: [5, 25],
+        popupAnchor: [5,-10]
     });
+
+    let userInfo = layerID.split('_')
+    let popupStr =  ""
+    if (userInfo[0] == 'group'){
+        
+        // `group_${year}_${dist}_${gender}_${aGroup}_${aSpeed}`
+        popupStr = `${userInfo[1]} ${userInfo[2]} ${userInfo[3]} </br> ${userInfo[4]} ${userInfo[5]}`
+    }else {
+        
+        // `person_${year}_${dist}_${gender}_${name}`
+        popupStr = `${userInfo[1]} ${userInfo[2]} ${userInfo[3]} </br> ${userInfo[4]}`
+    }
 
     let customLayer = L.geoJson(null, {
         pointToLayer: (feature, latLng) => {
             if (feature.properties.hasOwnProperty('last')) {
-                return new L.Marker(latLng, {
-                    icon: icon,
-                    title: "test",
-                });
-            }
+                let marker = new L.Marker(latLng, {
+                        icon: icon,
+                        }).bindPopup( popupStr);
+                marker.on('mouseover', (e) => {
+                        marker.openPopup();
+                    })
+                marker.on('mouseout', (e) => {
+                        marker.closePopup();
+                    });
+                return marker;
+                }
             return L.circleMarker(latLng);
         },
         style: (feature) => {
@@ -276,6 +305,9 @@ function genGPXFile(filePath, secs, startTime) {
                     let timeContext = isoTime.add(timeGap, 'seconds').toISOString();
                     // console.log(timeContext);
                     trk.append(`<time>${timeContext}</time>`)
+                    let userNum = Object.keys(gxpTimeLayerStore).length
+                    let lon = parseFloat(trk.attr('lon')) + 0.001 * userNum;
+                    trk.attr('lon', lon.toString());
                     multiplyer += 1;
                 });
                 resolve(data);

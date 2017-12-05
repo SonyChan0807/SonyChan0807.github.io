@@ -1,6 +1,6 @@
 #geomap {
   width: 100%;
-  height: 69%;
+  height: 55%;
 }
 
 #pathmap {
@@ -26,13 +26,17 @@
 
 
 #barchart_age {
-  width: 30%;
-  height: 40%;
+  width: 32%;
+  height: 44%;
+  float: left;
+  z-index: 100;
 }
 
 #barchart_city {
-  width: 60%;
-  height: 40%;
+  width: 67%;
+  height: 44%;
+  float: left;
+  z-index: 100;
 }
 
 iframe {
@@ -145,4 +149,10 @@ rect.highlight {
 .error_msg{
   font-size: 20 px;
   color: red;
+}
+
+.bar_city { fill: steelblue; }
+
+.city_label {
+  font: 5px solid Tahoma;
 }

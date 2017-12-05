@@ -1,7 +1,7 @@
 var currentZoom = 2; //8; //12;
 var map;
 var feature;
-  
+
 const mbAttr = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
     '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
     'Imagery © <a href="http://mapbox.com">Mapbox</a>';
@@ -16,20 +16,20 @@ const grayscale = L.tileLayer(mbUrl, {
         attribution: mbAttr
     });
 // const marathon = "data/marathon_data.csv";
-const marathon = "data/marathon_city_counts_top20.csv";
+const marathon_age = "data/marathon_city_counts_top20.csv";
 const marathon_data = "data/marathon_data.csv";
 
 function init() {
-    
-    let mapSlider = new Slider("#index_bar",  {
-        ticks:[2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017],
-        ticks_labels:[2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017]
-      });
-      
-    mapSlider.on('change', () =>{
+
+    let mapSlider = new Slider("#index_bar", {
+        ticks: [2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017],
+        ticks_labels: [2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017]
+    });
+
+    mapSlider.on('change', () => {
         let value = mapSlider.getValue();
         updateGraph(value)
-      });
+    });
     updateGraph(2017)
 }
 
@@ -37,7 +37,8 @@ function init() {
 
 function updateGraph(year) {
     drawMap(year);
-    drawBar(year);
+    drawBarAge(year);
+    drawBarCity(year);
 }
 
 function drawMap(year) {
@@ -62,7 +63,7 @@ function drawMap(year) {
         .attr("class", "tooltip")
         .style("opacity", 0);
 
-    d3.csv(marathon, (data) => {
+    d3.csv(marathon_age, (data) => {
         const finalData = processData(data, year);
         feature = plotCircle(g, finalData);
 
@@ -115,10 +116,7 @@ function processData(data, year) {
 }
 
 
-
-
-function drawBar(year) {
-    console.log('drawbar)');
+function drawBarAge(year) {
     d3.csv(marathon_data, (data) => {
         const newData = data.filter(d => d["race year"] == year);
         const maleCF = crossfilter(newData.filter(d => d.gender == 'male'))
@@ -136,8 +134,6 @@ function drawBar(year) {
         });
         countsByAgeGroupFemale.forEach(d => combined[d.key].female = d.value);
 
-        console.log(combined);
-        console.log(Object.keys(combined));
         let finalData = Object.keys(combined).map(
             key => {
                 let obj = {};
@@ -147,17 +143,12 @@ function drawBar(year) {
                 return obj
             });
 
-        console.log(finalData);
-        
-        
-        
-        updateBar(finalData);
+        updateBarAge(finalData);
     });
 
 }
 
-
-function updateBar(dataset) {
+function updateBarAge(dataset) {
     const containerWidth = parseInt(d3.select('#barchart_age').style('width'), 10);
     const containerHeight = parseInt(d3.select('#barchart_age').style('height'), 10);
     console.log(containerWidth);
@@ -221,7 +212,6 @@ function updateBar(dataset) {
         .attr("class", "x axis")
         .attr("transform", "translate(0," + height + ")")
         .call(xAxis);
-
     svg.append("g")
         .attr("class", "y axis")
         .call(yAxis)
@@ -283,7 +273,6 @@ function updateBar(dataset) {
         .attr("width", 18)
         .attr("height", 18)
         .style("fill", color);
-
     legend.append("text")
         .attr("x", width - 24)
         .attr("y", 9)
@@ -293,5 +282,80 @@ function updateBar(dataset) {
 }
 
 
+function drawBarCity(year) {
+    d3.csv(marathon_data, (data) => {
+        let cityCF = crossfilter(data.filter(d => d["race year"] == year))
+        let cityDimension = cityCF.dimension((d) => d['city']);
+        let groupByCity = cityDimension.group().reduceCount().top(20);
+        console.log(groupByCity);
+        updateBarCity(groupByCity);
+    });
 
+}
+
+function updateBarCity(dataset) {
+    const containerWidth = parseInt(d3.select('#barchart_city').style('width'), 10);
+    const containerHeight = parseInt(d3.select('#barchart_city').style('height'), 10);
+    const margin = {
+        top: containerHeight / 10,
+        right: containerWidth / 10,
+        bottom: containerHeight / 5,
+        left: containerWidth / 10
+    }
+    const width = containerWidth - margin.left - margin.right;
+    const height = containerHeight - margin.top - margin.bottom;
+
+    const x = d3.scaleBand().rangeRound([0, width]).padding(0.1);
+
+    const y = d3.scaleLinear().range([height, 0]);
+
+
+    const xAxis = d3.axisBottom(x);
+
+    const yAxis = d3.axisLeft(y).ticks(10);
+
+    const colorRange = d3.scaleOrdinal(d3.schemeCategory10);
+    const color = d3.scaleOrdinal()
+        .range(colorRange.range());
+
+
+    // const divTooltip = d3.select("body").append("div").attr("class", "toolTip");
+
+    d3.select('#city_bar').remove();
+    const svg = d3.select("#barchart_city").append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .attr('id', 'city_bar')
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+    x.domain(dataset.map(d => d.key));
+    y.domain([0, d3.max(dataset, d => d.value)]);
+
+    // append the rectangles for the bar chart
+    svg.selectAll(".bar")
+        .data(dataset)
+        .enter().append("rect")
+        .attr("class", "bar_city")
+        .attr("x", d => x(d.key))
+        .attr("width", x.bandwidth())
+        .attr("y", d => y(d.value))
+        .attr("height", d => height - y(d.value));
+
+    // add the x Axis
+    svg.append("g")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x))
+        .selectAll("text")
+        .style("text-anchor", "end")
+        .attr("dx", "-.8em")
+        .attr("dy", ".15em")
+        .attr("transform", "rotate(-25)")
+        .attr('class', "city_labels");
+
+    // add the y Axis
+    svg.append("g")
+        .call(d3.axisLeft(y));
+}
 window.addEventListener('load', init)

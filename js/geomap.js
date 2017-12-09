@@ -1,5 +1,6 @@
 var currentZoom = 2; //8; //12;
 var map;
+var svgLayer
 var feature;
 
 const mbAttr = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
@@ -30,6 +31,7 @@ function init() {
         let value = mapSlider.getValue();
         updateGraph(value)
     });
+    initMap()
     updateGraph(2017)
 }
 
@@ -41,17 +43,24 @@ function updateGraph(year) {
     drawBarCity(year);
 }
 
-function drawMap(year) {
-
+function initMap(){
     if (map != undefined) {
         map.remove();
     }
     map = L.map('geomap', {
         layers: [grayscale]
     }).setView([46.80111, 8.22667], currentZoom);
+}
 
+function drawMap(year) {
+
+    
+    if( svgLayer != undefined) {
+        svgLayer.remove();
+    }
+    
     // Add SVG layer to map
-    const svgLayer = L.svg();
+    svgLayer = L.svg();
     svgLayer.addTo(map);
 
     const svg = d3.select("#geomap").select("svg");
@@ -101,7 +110,7 @@ function plotCircle(g, data) {
         .style("fill", '#ccebc5')
         .attr('class', (d) => `${d.gender}_${d['age group']}_map $`)
         .attr('id', 'map_circle')
-        .attr("r", (d) => 5)
+        .attr("r", (d) => 1.5)
     return circles
 }
 

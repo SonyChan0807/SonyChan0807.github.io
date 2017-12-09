@@ -112,11 +112,9 @@ function deleteList(id) {
 
     initMap();
     let keys = Object.keys(gxpTimeLayerStore);
-    if (key.length) {
+    if (key.length != 0) {
         keys.forEach(key => gxpTimeLayerStore[key].addTo(map));
     }
-
-
 }
 
 function initMap() {

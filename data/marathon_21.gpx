@@ -12,14 +12,14 @@
     <!--url>https://www.google.co.uk/maps/dir/46.5141039,6.6205735/46.4489804,6.8666295/@46.4506575,6.8524201,14.08z/data=!4m2!4m1!3e2?hl=en</url-->
     <time>2017-12-05T23:20:42Z</time>
   </metadata>
-  <wpt lat="46.5141039" lon="6.6205735">
+  <!-- <wpt lat="46.5141039" lon="6.6205735">
     <name>1007 Lausanne</name>
     <desc>Avenue de Cour 20-22, 1007 Lausanne, Switzerland</desc>
   </wpt>
   <wpt lat="46.4489804" lon="6.8666295">
     <name>1814 La Tour-de-Peilz</name>
     <desc>Route de Saint-Maurice 162, 1814 La Tour-de-Peilz, Switzerland</desc>
-  </wpt>
+  </wpt> -->
 <trk>
   <name>1007 Lausanne to 1814 La Tour-de-Peilz</name>
   <number>1</number>

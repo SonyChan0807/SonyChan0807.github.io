@@ -1,13 +1,12 @@
 #geomap {
   width: 100%;
-  height: 55%;
+  height: 400px;
 }
 
 #pathmap {
-  width: 62%;
+  width: 100%;
   height: 100%;
-  float: left;
-  margin: 10px 5px;
+  /* margin: 10px 5px; */
 }
 #addMenu {
   width: 36%; 
@@ -20,28 +19,11 @@
   overflow: scroll;
 }
 
-#add_menu {
+#add_menu , #runner_table{
   overflow: scroll;
 }
 
 
-#barchart_age {
-  width: 32%;
-  height: 44%;
-  float: left;
-  z-index: 100;
-}
-
-#barchart_city {
-  width: 67%;
-  height: 44%;
-  float: left;
-  z-index: 100;
-}
-
-iframe {
-  height: 600px
-}
 
 .toolTip {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -155,4 +137,21 @@ rect.highlight {
 
 .city_label {
   font: 5px solid Tahoma;
+}
+
+.rank_circles {
+  z-index: 100;
+  stroke: steelblue;
+  opacity: 0.5;
+  fill: steelblue;
+}
+.rank_runner {
+  stroke: yellow;
+  fill: yellow;
+}
+
+.selected_runner {
+  stroke: steelblue;
+  opacity: 0.5;
+  fill: steelblue;
 }

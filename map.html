@@ -7,9 +7,12 @@
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
   <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.css" />
-	<link rel="stylesheet" href="https://cdn.rawgit.com/socib/Leaflet.TimeDimension/master/dist/leaflet.timedimension.control.min.css"></link>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.css" />
+  <link rel="stylesheet" href="https://cdn.rawgit.com/socib/Leaflet.TimeDimension/master/dist/leaflet.timedimension.control.min.css"></link>
   <link href="css/sb-admin.css" rel="stylesheet">
+  <!-- <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet"> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.0/css/bootstrap-slider.css">
+  <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
   <link rel="stylesheet" href='css/main.css'></link>
 </head>
 
@@ -59,21 +62,108 @@
 
   <div class="content-wrapper">
     <div class="container-fluid">
-        <!-- Data viz description-->
-        <div class="card mb-3">
-          <div class="card-header">
-            <i class="fa fa-table"></i> Data visualization description TBD</div>
-          <div class="card-body">
+      <!-- Data viz description-->
+      <div class="card mb-3">
+        <div class="card-header">
+          <i class="fa fa-table"></i> Data visualization description TBD</div>
+        <div class="card-body">
+        </div>
+      </div>
+      <div class="row">
+        <div style="position: relative; left: 50px; bottom:5px; width:90%;">
+          <input id="index_bar" type="text" style="width:100%;" data-slider-min=2015 data-slider-max=2017 data-slider-step="1" data-slider-value=2017
+            data-slider-tooltip="hide" />
+        </div>
+      </div>
+
+
+
+      <div class="row">
+        <!-- Data viz 2-->
+        <div class="col-lg-7" style="height: 400px">
+          <div class="card mb-3 h-100">
+            <div class="card-header">
+              <i class="fa fa-bar-chart"></i> Barchart - Participant distribution by Age</div>
+            <div class="card-body" id='barchart_age'></div>
+          </div>
+        </div>
+        <!-- Data viz 3-->
+        <div class="col-lg-5" style="height: 400px">
+          <div class="card mb-3 h-100">
+            <div class="card-header" style="height: 49px">
+              <i class="fa fa-pie-chart"></i>
+              Show Top rank runner &nbsp
+              <input id="toggle-event" type="checkbox" data-toggle="toggle" data-onstyle="primary" data-offstyle="danger" data-on="Enabled"
+                data-off="Disabled" data-size="small">
+              <button type="button" class="btn btn-primary btn-sm disabled" id="updateRank">Update</button>
+            </div>
+
+            <div class="card-body" style="overflow: scroll">
+
+              <div class="row" id="runner_table">
+                <div class="col-md-3">
+                  <label for="genger">Gender</label>
+                  <select class="form-control" id="gender">
+                    <option>Male</option>
+                    <option>Female</option>
+                  </select>
+                </div>
+                <div class="col-md-4">
+                  <label for="age_group">Age</label>
+                  <select class="form-control" id="age_group">
+                    <option>20-30</option>
+                    <option>30-40</option>
+                    <option>40-50</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+                <div class="col-md-4">
+                  <label for="distance">Catogory</label>
+                  <select class="form-control" id="dist">
+                    <option>42km</option>
+                    <option>21km</option>
+                    <option>10km</option>
+                  </select>
+                </div>
+              </div>
+              <br/>
+              <div class="row">
+                <div class="col-md-12">
+
+                  <div>
+                    <table class="table table-bordered table table-hover" id="dataTable" width="100%" height="80%" cellspacing="0">
+                      <thead class="thead-default">
+                        <tr>
+                          <th>#</th>
+                          <th>Runner</th>
+                          <th>City</th>
+                          <th>Country</th>
+                        </tr>
+                      </thead>
+                      <tbody id="rank_tbody">
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
           </div>
         </div>
 
-      <div class="card mb-3" id="map-container">
-      
-      <div width="100%" height="100%">
-        <iframe id="iFrame1" name="iFrame1" width="100%" height="500"  onload="this.height=iFrame1.document.body.scrollHeight" frameborder="0" src="map_iframe.html"></iframe>
+        
       </div>
-
-      </div>
+      <br/>
+      <div class="row">
+          <div class="col-lg-12 h-100">
+            <div class="card mb-3 h-100">
+              <div class="card-header">
+                <i class="fa fa-pie-chart"></i> Map</div>
+              <div class="card-body" id='geomap'></div>
+            </div>
+          </div>
+        </div>
     </div>
     <footer class="sticky-footer">
       <div class="container">
@@ -101,7 +191,11 @@
     <script type="text/javascript" src="https://cdn.rawgit.com/nezasa/iso8601-js-period/master/iso8601.min.js"></script>
     <script type="text/javascript" src="https://cdn.rawgit.com/socib/Leaflet.TimeDimension/master/dist/leaflet.timedimension.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
-
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.0/bootstrap-slider.js"></script>
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    <script type="text/javascript" src='js/geomap.js'></script>
   </div>
 </body>
 

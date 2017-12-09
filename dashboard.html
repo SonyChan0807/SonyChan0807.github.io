@@ -63,33 +63,58 @@
         <div class="card-body">
         </div>
       </div>
-      
-      <div class="row">
-        <!-- Data viz 2-->
-        <div class="col-lg-6">
-          <div class="card mb-3">
-            <div class="card-header">
-              <i class="fa fa-bar-chart"></i> Bar Chart - Average race time</div>
-            <div class="card-body" id='histogram'></div>
-          </div>
-        </div>
+      <br>
 
-        <!-- Data viz 3-->
-        <div class="col-lg-6">
-          <div class="card mb-3">
-            <div class="card-header">
-              <i class="fa fa-pie-chart"></i> Donut Chart - Participant distribution by category</div>
-            <div class="card-body" id='piechart'></div>
-          </div>
-        </div>
-      </div>
       <div class="row">
         <div style="position: relative; left: 50px; bottom:5px; width:90%;">
           <input id="ex21" type="text" style="width:100%;" data-slider-min=2015 data-slider-max=2017 data-slider-step="1" data-slider-value=2017
             data-slider-tooltip="hide" />
         </div>
       </div>
+      <br>
 
+      <div class="row">
+        <!-- Data viz 1 -->
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="card mb-3 h-100">
+            <div class="card-header">
+              <i class="fa fa-pie-chart"></i> Donut Chart - Participant distribution by category</div>
+            <div class="card-body" style="height: 300px;" id='piechart'></div>
+          </div>
+        </div>
+        <!-- Data viz 2 -->
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="card mb-3 h-100">
+            <div class="card-header">
+              <i class="fa fa-bar-chart"></i> Bar Chart - Fastest runner time</div>
+            <div class="card-body" id='min'></div>
+          </div>
+        </div>
+
+
+      </div>
+
+      <br>
+
+      <div class="row">
+        <!-- Data viz 3 -->
+        <div class="col-lg-6">
+          <div class="card mb-3 h-100">
+            <div class="card-header">
+              <i class="fa fa-bar-chart"></i> Bar Chart - Average race time</div>
+            <div class="card-body" id='avg'></div>
+          </div>
+        </div>
+
+        <!-- Data viz 4 -->
+        <div class="col-lg-6">
+          <div class="card mb-3 h-100">
+            <div class="card-header">
+              <i class="fa fa-bar-chart"></i> Bar Chart - Slowest runner time</div>
+            <div class="card-body" id='max'></div>
+          </div>
+        </div>
+      </div>
     </div>
     <footer class="sticky-footer">
       <div class="container">

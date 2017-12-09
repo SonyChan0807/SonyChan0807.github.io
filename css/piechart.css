@@ -35,3 +35,6 @@ polyline{
 	stroke-width: 2px;
 	fill: none;
 }
+.mouseovered {
+  fill: red;
+}

@@ -26,8 +26,13 @@ const marathon_data = "data/marathon_data.csv";
 const containerWidth = parseInt(d3.select('#barchart_age').style('width'), 10);
 const containerHeight = parseInt(d3.select('#barchart_age').style('height'), 10);
 
-const margin2 = {top: 40, right: 40, bottom: 60, left: 70};
-const width2 = containerWidth- margin2.left - margin2.right;
+const margin2 = {
+    top: 40,
+    right: 40,
+    bottom: 60,
+    left: 70
+};
+const width2 = containerWidth - margin2.left - margin2.right;
 const height2 = containerHeight - margin2.top - margin2.bottom;
 
 function init() {
@@ -178,7 +183,7 @@ function processData(data, year) {
 }
 
 function drawBarAge(year) {
-    
+
     d3.csv(marathon_data, (data) => {
         const newData = data.filter(d => d["race year"] == year);
         const maleCF = crossfilter(newData.filter(d => d.gender == 'male'))
@@ -205,13 +210,13 @@ function drawBarAge(year) {
                 return obj
             });
 
-        updateBarAge(finalData, margin2, width2, height2 );
+        updateBarAge(finalData, margin2, width2, height2);
     });
 
 }
 
 function updateBarAge(dataset, margin, width, height) {
-    
+
     const x0 = d3.scaleBand()
         .rangeRound([0, width])
         .padding(0.1);
@@ -364,23 +369,23 @@ function showRunner() {
         data = data.filter(d => d["race year"] == year && d["category"] == dist.split('k')[0] &&
             d['gender'] == gender.toLowerCase() && d["age group"] == aGroup.toLowerCase());
 
-        console.log(data)
         // add to table
         data.forEach((d, idx) => {
 
-                let trStr = `<tr class="rankTr" id="rank_tr_${d['index']}" lat="${parseFloat(d['latitude'])}" lon="${parseFloat(d['longitude'])}">
+            let trStr = `<tr class="rankTr" id="rank_tr_${d['index']}" lat="${parseFloat(d['latitude'])}" lon="${parseFloat(d['longitude'])}">
             <th scope="row">${idx + 1}</th>
             <td>${d['name']}</td>
             <td>${d['city']}</td>
             <td>${d['country']}</td>
             </tr>`
-                $("#rank_tbody").append(trStr)
+            $("#rank_tbody").append(trStr)
         });
 
 
         let rankCenter = [parseFloat(data[0]['latitude']), parseFloat(data[0]['longitude'])];
-        map.setView(rankCenter, 7);
 
+
+        map.setView(rankCenter, 7);
         //show on the map
         d3.selectAll(`.rank_${data[0]['race year']}_${data[0]['gender']}_${data[0]['age group']}_${data[0]['category']}`)
             .classed('rankTr_cirlcle', true)
@@ -392,12 +397,9 @@ function showRunner() {
 
         // add list hover effect
         $('.rankTr').each(function () {
-
             let row = $(this)
             let idx = row.attr('id').split("_")[2];
-            console.log(row.attr('lat'))
             let runnerCenter = [parseFloat(row.attr('lat')), parseFloat(row.attr('lon'))];
-
             row.mouseover(function () {
                 map.setView(runnerCenter, 6, {
                     pan: {
@@ -442,12 +444,7 @@ function removeRunner() {
     // remove circle
     d3.selectAll(".rankTr_cirlcle")
         .style("opacity", 0.0);
-        // .style("fill", 'steeblue')
-        // .attr('id', d => `rank_${d['index']}`)
-        // .attr("r", (d) => 5);
 
-
-    // set to initial view
     map.setView([46.80111, 8.22667], 2, {
         pan: {
             animate: true,

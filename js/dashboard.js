@@ -32,7 +32,6 @@ function redraw() {
         .value(function(d) {
             return d.value;
         });
-
     arc = d3.arc()
         .outerRadius(radius * 0.8)
         .innerRadius(radius * 0.4);
@@ -415,12 +414,17 @@ chartMax
 
 function updatePiechart(data) {
   var slice = svg.select(".slices").selectAll("path.slice")
-        .data(pie(data), function(d){ return d.data.label });
+        .data(pie(data), function(d){ return d.data.label })
+        .attr("class", function(d) {
+            return d3.select(this).attr("class") + " " +  "m_" + 
+            d.data.label.replace(/\s/g, "").replace("-","_")
+        });
 
     slice.enter()
         .insert("path")
         .style("fill", function(d) { return color(d.data.label); })
-        .attr("class", "slice");
+        .attr("class", "slice")
+        
 
     slice
         .transition().duration(1000)
@@ -433,15 +437,23 @@ function updatePiechart(data) {
             };
         })
     slice
-        .on("mousemove", function(d){
+        .on("mouseover", function(d){
+            
+            
             div.style("left", d3.event.pageX+10+"px");
             div.style("top", d3.event.pageY-25+"px");
             div.style("display", "inline-block");
             div.html((d.data.label)+"<br>"+(d.data.value)+"%");
+            let id = "m_" + d.data.label.replace(/\s/g, "").replace("-","_");
+            d3.selectAll(`.${id}`).attr("stroke", "black").attr("stroke-width", 1);
+
         });
     slice
+
         .on("mouseout", function(d){
             div.style("display", "none");
+            let id = "m_" + d.data.label.replace(/\s/g, "").replace("-","_");
+            d3.selectAll(`.${id}`).attr("stroke", "None").attr("stroke-width", 0);
         });
 
     slice.exit()
@@ -556,13 +568,23 @@ function updateAvgHistogram(data){
         return "#FFED6F";
       }
     })
-    .on("mousemove", function(d){
+    .on("mouseover", function(d){
             div2.style("left", d3.event.pageX+10+"px");
             div2.style("top", d3.event.pageY-25+"px");
             div2.style("display", "inline-block");
             div2.html((d.label)+"<br>Avg race time: "+(d.avgTime.toHHMMSS()));
+            let id = "m_" + d.label.replace(/\s/g, "").replace("-","_");
+            d3.selectAll(`.${id}`).attr("stroke", "black").attr("stroke-width", 3);
+            
     })
-    .on("mouseout", function(d){ div2.style("display", "none");})
+    .attr("class", function(d) {
+        return d3.select(this).attr("class") + " " +  "m_" + 
+        d.label.replace(/\s/g, "").replace("-","_")
+    })
+    .on("mouseout", function(d){ div2.style("display", "none");
+    let id = "m_" + d.label.replace(/\s/g, "").replace("-","_");
+    d3.selectAll(`.${id}`).attr("stroke", "None").attr("stroke-width", 0);
+    })
     .attr("width", barWidth - 1)
     .attr("x", function(d, i){ return i * barWidth + 1 })
     .attr("y", height2)
@@ -611,13 +633,21 @@ function updateFastestHistogram(data){
                 return "#B3DF68";
             }
         })
-        .on("mousemove", function(d){
+        .attr("class", function(d) {
+            return d3.select(this).attr("class") + " " +  "m_" + 
+            d.label.replace(/\s/g, "").replace("-","_")
+        })
+        .on("mouseover", function(d){
             div2.style("left", d3.event.pageX+10+"px");
             div2.style("top", d3.event.pageY-25+"px");
             div2.style("display", "inline-block");
             div2.html((d.label)+"<br>Fastest run time: "+(d.minTime.toHHMMSS()));
+            let id = "m_" + d.label.replace(/\s/g, "").replace("-","_");
+            d3.selectAll(`.${id}`).attr("stroke", "black").attr("stroke-width", 3);
         })
-        .on("mouseout", function(d){ div2.style("display", "none");})
+        .on("mouseout", function(d){ div2.style("display", "none");
+        let id = "m_" + d.label.replace(/\s/g, "").replace("-","_");
+        d3.selectAll(`.${id}`).attr("stroke", "None").attr("stroke-width", 0);})
         .attr("width", barWidth - 1)
         .attr("x", function(d, i){ return i * barWidth + 1 })
         .attr("y", height2)
@@ -666,13 +696,22 @@ function updateSlowestHistogram(data){
                 return "#7FB2D4";
             }
         })
-        .on("mousemove", function(d){
+        .attr("class", function(d) {
+            return d3.select(this).attr("class") + " " +  "m_" + 
+            d.label.replace(/\s/g, "").replace("-","_")
+        })
+        .on("mouseover", function(d){
             div2.style("left", d3.event.pageX+10+"px");
             div2.style("top", d3.event.pageY-25+"px");
             div2.style("display", "inline-block");
             div2.html((d.label)+"<br>Slowest run time: "+(d.maxTime.toHHMMSS()));
+            let id = "m_" + d.label.replace(/\s/g, "").replace("-","_");
+            console.log(id);
+            d3.selectAll(`.${id}`).attr("stroke", "black").attr("stroke-width", 3);
         })
-        .on("mouseout", function(d){ div2.style("display", "none");})
+        .on("mouseout", function(d){ div2.style("display", "none");
+        let id = "m_" + d.label.replace(/\s/g, "").replace("-","_");
+        d3.selectAll(`.${id}`).attr("stroke", "None").attr("stroke-width",0 );})
         .attr("width", barWidth - 1)
         .attr("x", function(d, i){ return i * barWidth + 1 })
         .attr("y", height2)

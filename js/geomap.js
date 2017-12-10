@@ -4,7 +4,6 @@ let svgLayer
 let feature;
 let rankFeature;
 let toggleStatus;
-let mapSlider
 
 const mbAttr = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
     '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
@@ -36,16 +35,10 @@ const width2 = containerWidth - margin2.left - margin2.right;
 const height2 = containerHeight - margin2.top - margin2.bottom;
 
 function init() {
-
-    mapSlider = new Slider("#index_bar", {
-        ticks: [2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017],
-        ticks_labels: [2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017]
+    yearSlider.on('change', () => {
+        updateGraph(yearSlider.getValue())
     });
 
-    mapSlider.on('change', () => {
-        let value = mapSlider.getValue();
-        updateGraph(value)
-    });
     initMap()
     updateGraph(2017)
     toggleSetting()
@@ -356,7 +349,7 @@ function toggleSetting() {
 }
 
 function showRunner() {
-    let year = mapSlider.getValue();
+    let year = yearSlider.getValue();
     let gender = $("#gender option:selected").text();
     let dist = $("#dist option:selected").text();
     let aGroup = $("#age_group option:selected").text();

@@ -2,6 +2,7 @@
 changeChart(2017,true);
 
 window.addEventListener("resize", redraw);
+
 function redraw() {
     // Pie chart
     pieChartDiv = document.getElementById("piechart");
@@ -166,19 +167,12 @@ function redraw() {
         .attr("transform", "translate(" + ((width2/2) - 40) + "," + (height2 + margin2.bottom - 8) + ")")
         .text("Race category");
 
-    let value = mySlider.getValue();
+    let value = yearSlider.getValue();
     changeChart(value,true);
 }
 
-// Year slider
-let mySlider = new Slider("#ex21", {
-  ticks:[2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017],
-  ticks_labels:[2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017]
-});
-
-mySlider.on('change', function(){
-  let value = mySlider.getValue();
-  changeChart(value,false);
+yearSlider.on('change', function(){
+  changeChart(yearSlider.getValue(), false);
 });
 
 // Arrange row dat
@@ -424,7 +418,6 @@ function updatePiechart(data) {
         .insert("path")
         .style("fill", function(d) { return color(d.data.label); })
         .attr("class", "slice")
-        
 
     slice
         .transition().duration(1000)
@@ -438,8 +431,6 @@ function updatePiechart(data) {
         })
     slice
         .on("mouseover", function(d){
-            
-            
             div.style("left", d3.event.pageX+10+"px");
             div.style("top", d3.event.pageY-25+"px");
             div.style("display", "inline-block");
@@ -575,7 +566,6 @@ function updateAvgHistogram(data){
             div2.html((d.label)+"<br>Avg race time: "+(d.avgTime.toHHMMSS()));
             let id = "m_" + d.label.replace(/\s/g, "").replace("-","_");
             d3.selectAll(`.${id}`).attr("stroke", "black").attr("stroke-width", 3);
-            
     })
     .attr("class", function(d) {
         return d3.select(this).attr("class") + " " +  "m_" + 

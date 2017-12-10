@@ -233,11 +233,9 @@ function addRunner(data, iconParams, layerID) {
     let userInfo = layerID.split('_')
     let popupStr =  ""
     if (userInfo[0] == 'group'){
-        
         // `group_${year}_${dist}_${gender}_${aGroup}_${aSpeed}`
         popupStr = `${userInfo[1]} ${userInfo[2]} ${userInfo[3]} </br> ${userInfo[4]} ${userInfo[5]}`
-    }else {
-        
+    } else {
         // `person_${year}_${dist}_${gender}_${name}`
         popupStr = `${userInfo[1]} ${userInfo[2]} ${userInfo[3]} </br> ${userInfo[4]}`
     }
@@ -296,7 +294,7 @@ function genGPXFile(filePath, secs, startTime) {
                 let trks = $(data).find("trkpt");
                 let timeGap = secs / trks.length;
                 console.log(timeGap);
-                let multiplyer = 0;
+                let multiplier = 0;
                 let isoTime = moment(`${startTime}-01-01 8:00:00`);
                 trks.each(function () {
                     let trk = $(this);
@@ -306,7 +304,7 @@ function genGPXFile(filePath, secs, startTime) {
                     let userNum = Object.keys(gxpTimeLayerStore).length
                     let lon = parseFloat(trk.attr('lon')) + 0.001 * userNum;
                     trk.attr('lon', lon.toString());
-                    multiplyer += 1;
+                    multiplier += 1;
                 });
                 resolve(data);
             }
@@ -315,13 +313,10 @@ function genGPXFile(filePath, secs, startTime) {
     return newGPX;
 }
 
-// "1:56.27,0"
+// Time format: "1:56:27.0"
 function getSecs(record) {
-    let timeStr = record.split(",")[0];
-    let hour = parseInt(timeStr.split(':')[0]);
-    let min = parseInt(timeStr.split(':')[1].split('.')[0]);
-    let sec = parseInt(timeStr.split('.')[1]);
-    return hour * 3600 + min * 60 + sec;
+    let time = /(\d+):(\d+):(\d+).(\d+)/i.exec(record)
+    return parseInt(time[1]) * 3600 + parseInt(time[2]) * 60 + parseInt(time[3]);
 }
 
 function toggleErrorMSG(id, type) {
@@ -331,7 +326,7 @@ function toggleErrorMSG(id, type) {
             errorMSG = "Runner is on the map!"
             break;
         case 2:
-            errorMSG = "Runner note found"
+            errorMSG = "Runner not found"
             break;
         case 3:
             errorMSG = "Excess 5 runners"

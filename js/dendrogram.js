@@ -1,34 +1,34 @@
 console.log(d3.schemeCategory20b);
 // Year slider
-var mySlider = new Slider("#dendro", {
+let mySlider = new Slider("#dendro", {
   ticks:[2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017],
   ticks_labels:[2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017]
 });
 
 mySlider.on('change', function(){
-  var value = mySlider.getValue();
+  let value = mySlider.getValue();
   updateDendrogram(value);
 });
 
 updateDendrogram(2017);
 
 d3.selectAll("svg").remove();
-var margin = {top: 0, right: 10, bottom: 0, left: 50};
-var width = 1000;
-var height = 500;
+let margin = {top: 0, right: 10, bottom: 0, left: 50};
+let width = 1000;
+let height = 500;
 
-var svg = d3.select("#dendrogram")
+let svg = d3.select("#dendrogram")
             .append("svg")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom);
 
-var g = svg.append("g").attr("transform", "translate(20,0)");
+let g = svg.append("g").attr("transform", "translate(20,0)");
 
-var xScale =  d3.scaleLinear()
+let xScale =  d3.scaleLinear()
                 .domain([0,1200])
                 .range([0,600]);
 
-var tree = d3.cluster()
+let tree = d3.cluster()
              .size([height, width - 600])
              .separation(function separate(a, b) {
                   return a.parent == b.parent
@@ -36,7 +36,7 @@ var tree = d3.cluster()
                   || a.parent == b.parent.parent ? 2 : 3;
               });
 
-var stratify = d3.stratify()
+let stratify = d3.stratify()
                  .parentId(function(d) { return d.id.substring(0, d.id.lastIndexOf(".")); });
 
 function updateDendrogram(value){
@@ -44,21 +44,21 @@ function updateDendrogram(value){
   d3.csv("data/marathon_data.csv", row, function(error, data) {
       if (error) throw error;
       //console.log(data);
-      var categories = [10,21,42],
+      let categories = [10,21,42],
           age_groups = ['20-30','30-40','40-50','other'],
           genders = ['male','female'];
 
-      var updateData = [{'id':value.toString(),'value':'','color':''}]
+      let updateData = [{'id':value.toString(),'value':'','color':''}]
 
-      var alldata = crossfilter(data),
+      let alldata = crossfilter(data),
           dataByYear = alldata.dimension(function(d) { return d.year; }),
           chooseDataByYear = dataByYear.filter(function(d) { return d == value}),
           chooseDataByYearObject = chooseDataByYear.top(Infinity);
 
-      for (var i = 0; i < categories.length; i++){
+      for (let i = 0; i < categories.length; i++){
         updateData.push({'id':value+'.'+categories[i]+' km','value':'','color':''});
 
-        var yearData = crossfilter(chooseDataByYearObject),
+        let yearData = crossfilter(chooseDataByYearObject),
             yearDataByRace = yearData.dimension(function(d) { return d.category; }),
             chooseDataByRace = yearDataByRace.filter(function(d) { return d == categories[i]; }),
             chooseDataByRaceObject = chooseDataByRace.top(Infinity);
@@ -68,16 +68,16 @@ function updateDendrogram(value){
         updateData.push({'id':value+'.'+categories[i]+' km'+'.Age group 40-50','value':'','color':''});
         updateData.push({'id':value+'.'+categories[i]+' km'+'.Age group other','value':'','color':''});
 
-        for (var j = 0; j < genders.length; j++){
-          var raceData = crossfilter(chooseDataByRaceObject),
+        for (let j = 0; j < genders.length; j++){
+          let raceData = crossfilter(chooseDataByRaceObject),
               raceDataByGender = raceData.dimension(function(d) { return d.gender; }),
               chooseDataByGender = raceDataByGender.filter(function(d) { return d == genders[j]; }),
               chooseDataByGenderObject = chooseDataByGender.top(Infinity);
 
-          //var rest = chooseDataByGenderObject.length;
+          //let rest = chooseDataByGenderObject.length;
 
-          for (var p = 0; p < age_groups.length; p++){
-            var genderData = crossfilter(chooseDataByGenderObject),
+          for (let p = 0; p < age_groups.length; p++){
+            let genderData = crossfilter(chooseDataByGenderObject),
                 genderDataByAge = genderData.dimension(function(d) { return d.age_group; }),
                 chooseDataByAge = genderDataByAge.filter(function(d) { return d == age_groups[p]; }),
                 chooseDataByAgeObject = chooseDataByAge.top(Infinity);
@@ -91,7 +91,7 @@ function updateDendrogram(value){
       }
       console.log(updateData);
 
-      var root = stratify(updateData);
+      let root = stratify(updateData);
       tree(root);
 
       d3.selectAll(".link").remove();
@@ -99,7 +99,7 @@ function updateDendrogram(value){
       d3.selectAll(".ballG").remove();
 
       // Draw every datum a line connecting to its parent.
-      var link = g.selectAll(".link")
+      let link = g.selectAll(".link")
                   .data(root.descendants().slice(1))
                   .enter().append("path")
                   .attr("class", "link")
@@ -111,7 +111,7 @@ function updateDendrogram(value){
                   });
 
       // Setup position for every datum; Applying different css classes to parents and leafs.
-      var node = g.selectAll(".node")
+      let node = g.selectAll(".node")
                   .data(root.descendants())
                   .enter().append("g")
                   .attr("class", function(d) { return "node" + (d.children ? " node--internal" : " node--leaf"); }) //css
@@ -122,7 +122,7 @@ function updateDendrogram(value){
           .attr("r", 4);
 
       // Setup G for every leaf datum.
-      var leafNodeG = g.selectAll(".node--leaf")
+      let leafNodeG = g.selectAll(".node--leaf")
                        .append("g")
                        .attr("class", "node--leaf-g")
                        .attr("transform", "translate(" + 8 + "," + -13 + ")");
@@ -147,7 +147,7 @@ function updateDendrogram(value){
               });
 
       // Write down text for every parent datum
-      var internalNode = g.selectAll(".node--internal");
+      let internalNode = g.selectAll(".node--internal");
       internalNode.append("text")
               .attr("y", -10)
               .style("text-anchor", "middle")
@@ -156,7 +156,7 @@ function updateDendrogram(value){
               });
 
       // The moving ball
-      var ballG = svg.insert("g")
+      let ballG = svg.insert("g")
               .attr("class","ballG")
               .attr("transform", "translate(" + 1100 + "," + height/2 + ")");
       ballG.insert("circle")
@@ -174,14 +174,14 @@ function updateDendrogram(value){
               .on("mouseout", handleMouseOut);
 
       function handleMouseOver(d) {
-          var leafG = d3.select(this);
+          let leafG = d3.select(this);
 
           leafG.select("rect")
                   .attr("stroke","#4D4D4D")
                   .attr("stroke-width","2");
 
 
-          var ballGMovement = ballG.transition()
+          let ballGMovement = ballG.transition()
                   .duration(400)
                   .attr("transform", "translate(" + (d.y
                           + xScale(d.data.value) + 80) + ","
@@ -196,7 +196,7 @@ function updateDendrogram(value){
                   .text(Number(d.data.value).toFixed(1));
       }
       function handleMouseOut() {
-          var leafG = d3.select(this);
+          let leafG = d3.select(this);
 
           leafG.select("rect")
                   .attr("stroke-width","0");

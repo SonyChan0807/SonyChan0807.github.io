@@ -166,18 +166,18 @@ function redraw() {
         .attr("transform", "translate(" + ((width2/2) - 40) + "," + (height2 + margin2.bottom - 8) + ")")
         .text("Race category");
 
-    var value = mySlider.getValue();
+    let value = mySlider.getValue();
     changeChart(value,true);
 }
 
 // Year slider
-var mySlider = new Slider("#ex21", {
+let mySlider = new Slider("#ex21", {
   ticks:[2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017],
   ticks_labels:[2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017]
 });
 
 mySlider.on('change', function(){
-  var value = mySlider.getValue();
+  let value = mySlider.getValue();
   changeChart(value,false);
 });
 
@@ -194,22 +194,22 @@ function row(d) {
 function changeChart(value,first){
   d3.csv("data/marathon_data.csv", row, function(error, data) {
       if (error) throw error;
-      var updateData = [];
-      var categories = [10,21,42];
-      var gender = ['male','female'];
+      let updateData = [];
+      let categories = [10,21,42];
+      let gender = ['male','female'];
 
-      var alldata = crossfilter(data),
+      let alldata = crossfilter(data),
           dataByYear = alldata.dimension(function(d) { return d.year; }),
           chooseDataByYear = dataByYear.filter(function(d) { return d == value}),
           chooseDataByYearObject = chooseDataByYear.top(Infinity);
 
-      for(var i = 0; i < categories.length; i++){
-        var yearData = crossfilter(chooseDataByYearObject),
+      for(let i = 0; i < categories.length; i++){
+        let yearData = crossfilter(chooseDataByYearObject),
             yearDataByRace = yearData.dimension(function(d) { return d.category; }),
             chooseDataByRace = yearDataByRace.filter(function(d) { return d == categories[i]}),
             chooseDataByRaceObject = chooseDataByRace.top(Infinity);
-        for(var j = 0; j < gender.length; j++){
-          var raceData = crossfilter(chooseDataByRaceObject),
+        for(let j = 0; j < gender.length; j++){
+          let raceData = crossfilter(chooseDataByRaceObject),
               raceDataByGender = raceData.dimension(function(d) { return d.gender; }),
               chooseDataByGender = raceDataByGender.filter(function(d) { return d == gender[j]}),
               chooseDataByGenderObject = chooseDataByGender.top(Infinity);
@@ -218,9 +218,9 @@ function changeChart(value,first){
           min = Number.POSITIVE_INFINITY;
           max = Number.NEGATIVE_INFINITY;
           chooseDataByGenderObject.forEach(function(element){
-            var timeParts = element.time.split(":");
-            var secParts = timeParts[2].split(".");
-            var secs = Number(timeParts[0]) * 3600 + Number(timeParts[1]) * 60 + Number(secParts[0]);
+            let timeParts = element.time.split(":");
+            let secParts = timeParts[2].split(".");
+            let secs = Number(timeParts[0]) * 3600 + Number(timeParts[1]) * 60 + Number(secParts[0]);
             if(secs > max) max = secs;
             if(secs < max) min = secs;
             totalTime += secs;
@@ -233,11 +233,11 @@ function changeChart(value,first){
               'maxTime':max.toFixed(2)});
         }
       }
-      var total = 0;
-      for(var i = 0; i < updateData.length; i++){
+      let total = 0;
+      for(let i = 0; i < updateData.length; i++){
         total += updateData[i].value;
       }
-      for(var i = 0; i < updateData.length; i++){
+      for(let i = 0; i < updateData.length; i++){
         updateData[i].value = (updateData[i].value / total * 100).toFixed(2);
       }
 
@@ -253,13 +253,13 @@ function changeChart(value,first){
 }
 
 // Pie chart
-var pieChartDiv = document.getElementById("piechart");
-var margin = {top: 2, right: 2, bottom: 2, left: 2};
-var width = pieChartDiv.clientWidth - margin.left - margin.right;
-var height = pieChartDiv.clientHeight - margin.top - margin.bottom;
-var radius = Math.min(width, height) / 2;
+let pieChartDiv = document.getElementById("piechart");
+let margin = {top: 2, right: 2, bottom: 2, left: 2};
+let width = pieChartDiv.clientWidth - margin.left - margin.right;
+let height = pieChartDiv.clientHeight - margin.top - margin.bottom;
+let radius = Math.min(width, height) / 2;
 
-var svg = d3.select("#piechart")
+let svg = d3.select("#piechart")
     .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
@@ -275,64 +275,64 @@ svg.append("g")
 svg.append("g")
     .attr("class", "lines");
 
-var pie = d3.pie()
+let pie = d3.pie()
     .sort(null)
     .value(function(d) {
         return d.value;
     });
 
-var arc = d3.arc()
+let arc = d3.arc()
     .outerRadius(radius * 0.8)
     .innerRadius(radius * 0.4);
 
-var outerArc = d3.arc()
+let outerArc = d3.arc()
     .innerRadius(radius * 0.9)
     .outerRadius(radius * 0.9);
 
-var legendRectSize = (radius * 0.05);
-var legendSpacing = radius * 0.02;
+let legendRectSize = (radius * 0.05);
+let legendSpacing = radius * 0.02;
 
-var div = d3.select("body").append("div").attr("class", "toolTip");
+let div = d3.select("body").append("div").attr("class", "toolTip");
 
 svg.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-var color = d3.scaleOrdinal(d3.schemeCategory20);
+let color = d3.scaleOrdinal(d3.schemeCategory20);
 
 // Histogram
-var chartDiv = document.getElementById("min");
-var margin2 = {top: 40, right: 40, bottom: 60, left: 70};
-var width2 = chartDiv.clientWidth - margin2.left - margin2.right;
-var height2 = chartDiv.clientHeight - margin2.top - margin2.bottom;
-var div2 = d3.select("body").append("div").attr("class", "toolTip");
+let chartDiv = document.getElementById("min");
+let margin2 = {top: 40, right: 40, bottom: 60, left: 70};
+let width2 = chartDiv.clientWidth - margin2.left - margin2.right;
+let height2 = chartDiv.clientHeight - margin2.top - margin2.bottom;
+let div2 = d3.select("body").append("div").attr("class", "toolTip");
 
-var chartAvg = d3.select("#avg")
+let chartAvg = d3.select("#avg")
     .append("svg")
     .attr("width", width2 + margin2.left + margin2.right)
     .attr("height", height2 + margin2.top + margin2.bottom)
     .append("g")
     .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")");
 
-var chartMin = d3.select("#min")
+let chartMin = d3.select("#min")
     .append("svg")
     .attr("width", width2 + margin2.left + margin2.right)
     .attr("height", height2 + margin2.top + margin2.bottom)
     .append("g")
     .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")");
 
-var chartMax = d3.select("#max")
+let chartMax = d3.select("#max")
     .append("svg")
     .attr("width", width2 + margin2.left + margin2.right)
     .attr("height", height2 + margin2.top + margin2.bottom)
     .append("g")
     .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")");
 
-var xChart = d3.scaleBand()
+let xChart = d3.scaleBand()
     .range([0, width2]);
-var yChart = d3.scaleLinear()
+let yChart = d3.scaleLinear()
     .range([height2, 0]);
 
-var xAxis = d3.axisBottom(xChart);
-var yAxis = d3.axisLeft(yChart);
+let xAxis = d3.axisBottom(xChart);
+let yAxis = d3.axisLeft(yChart);
 
 chartAvg.append("g")
     .attr("class", "y axis")
@@ -413,7 +413,7 @@ chartMax
     .text("Race category");
 
 function updatePiechart(data) {
-  var slice = svg.select(".slices").selectAll("path.slice")
+  let slice = svg.select(".slices").selectAll("path.slice")
         .data(pie(data), function(d){ return d.data.label })
         .attr("class", function(d) {
             return d3.select(this).attr("class") + " " +  "m_" + 
@@ -430,7 +430,7 @@ function updatePiechart(data) {
         .transition().duration(1000)
         .attrTween("d", function(d) {
             this._current = this._current || d;
-            var interpolate = d3.interpolate(this._current, d);
+            let interpolate = d3.interpolate(this._current, d);
             this._current = interpolate(0);
             return function(t) {
                 return arc(interpolate(t));
@@ -459,16 +459,16 @@ function updatePiechart(data) {
     slice.exit()
         .remove();
 
-    var legend = svg.selectAll('.legend')
+    let legend = svg.selectAll('.legend')
         .data(color.domain())
         .enter()
         .append('g')
         .attr('class', 'legend')
         .attr('transform', function(d, i) {
-            var height = legendRectSize + legendSpacing;
-            var offset =  height * color.domain().length / 2;
-            var horz = - 5 * legendRectSize;
-            var vert = i * height - offset;
+            let height = legendRectSize + legendSpacing;
+            let offset =  height * color.domain().length / 2;
+            let horz = - 5 * legendRectSize;
+            let vert = i * height - offset;
             return 'translate(' + horz + ',' + vert + ')';
         });
 
@@ -483,7 +483,7 @@ function updatePiechart(data) {
         .attr('y', legendRectSize - legendSpacing)
         .text(function(d) { return d; });
 
-    var text = svg.select(".labelName").selectAll("text")
+    let text = svg.select(".labelName").selectAll("text")
         .data(pie(data), function(d){ return d.data.label });
 
     text.enter()
@@ -501,21 +501,21 @@ function updatePiechart(data) {
         .transition().duration(1000)
         .attrTween("transform", function(d) {
             this._current = this._current || d;
-            var interpolate = d3.interpolate(this._current, d);
+            let interpolate = d3.interpolate(this._current, d);
             this._current = interpolate(0);
             return function(t) {
-                var d2 = interpolate(t);
-                var pos = outerArc.centroid(d2);
+                let d2 = interpolate(t);
+                let pos = outerArc.centroid(d2);
                 pos[0] = radius * (midAngle(d2) < Math.PI ? 1 : -1);
                 return "translate("+ pos +")";
             };
         })
         .styleTween("text-anchor", function(d){
             this._current = this._current || d;
-            var interpolate = d3.interpolate(this._current, d);
+            let interpolate = d3.interpolate(this._current, d);
             this._current = interpolate(0);
             return function(t) {
-                var d2 = interpolate(t);
+                let d2 = interpolate(t);
                 return midAngle(d2) < Math.PI ? "start":"end";
             };
         })
@@ -527,7 +527,7 @@ function updatePiechart(data) {
     text.exit()
         .remove();
 
-    var polyline = svg.select(".lines").selectAll("polyline")
+    let polyline = svg.select(".lines").selectAll("polyline")
         .data(pie(data), function(d){ return d.data.label });
 
     polyline.enter()
@@ -536,11 +536,11 @@ function updatePiechart(data) {
     polyline.transition().duration(1000)
         .attrTween("points", function(d){
             this._current = this._current || d;
-            var interpolate = d3.interpolate(this._current, d);
+            let interpolate = d3.interpolate(this._current, d);
             this._current = interpolate(0);
             return function(t) {
-                var d2 = interpolate(t);
-                var pos = outerArc.centroid(d2);
+                let d2 = interpolate(t);
+                let pos = outerArc.centroid(d2);
                 pos[0] = radius * 0.95 * (midAngle(d2) < Math.PI ? 1 : -1);
                 return [arc.centroid(d2), outerArc.centroid(d2), pos];
             };
@@ -555,8 +555,8 @@ function updatePiechart(data) {
 function updateAvgHistogram(data){
   xChart.domain(data.map(function(d){ return d.category + 'km'; }) );
   yChart.domain( [0, d3.max(data, function(d){ return +d.avgTime; })] );
-  var barWidth = width2 / data.length;
-  var bars = chartAvg.selectAll(".bar").data(data);
+  let barWidth = width2 / data.length;
+  let bars = chartAvg.selectAll(".bar").data(data);
 
   bars.enter()
     .append("rect")
@@ -620,8 +620,8 @@ function updateAvgHistogram(data){
 function updateFastestHistogram(data){
     xChart.domain(data.map(function(d){ return d.category + 'km'; }) );
     yChart.domain( [0, d3.max(data, function(d){ return +d.minTime; })] );
-    var barWidth = width2 / data.length;
-    var bars = chartMin.selectAll(".bar").data(data);
+    let barWidth = width2 / data.length;
+    let bars = chartMin.selectAll(".bar").data(data);
 
     bars.enter()
         .append("rect")
@@ -683,8 +683,8 @@ function updateFastestHistogram(data){
 function updateSlowestHistogram(data){
     xChart.domain(data.map(function(d){ return d.category + 'km'; }) );
     yChart.domain( [0, d3.max(data, function(d){ return +d.maxTime; })] );
-    var barWidth = width2 / data.length;
-    var bars = chartMax.selectAll(".bar").data(data);
+    let barWidth = width2 / data.length;
+    let bars = chartMax.selectAll(".bar").data(data);
 
     bars.enter()
         .append("rect")
@@ -745,10 +745,10 @@ function updateSlowestHistogram(data){
 }
 
 String.prototype.toHHMMSS = function () {
-    var sec_num = parseInt(this, 10);
-    var hours   = Math.floor(sec_num / 3600);
-    var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
-    var seconds = sec_num - (hours * 3600) - (minutes * 60);
+    let sec_num = parseInt(this, 10);
+    let hours   = Math.floor(sec_num / 3600);
+    let minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+    let seconds = sec_num - (hours * 3600) - (minutes * 60);
 
     if (hours   < 10) {hours   = "0"+hours;}
     if (minutes < 10) {minutes = "0"+minutes;}

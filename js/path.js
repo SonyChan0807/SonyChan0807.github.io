@@ -1,6 +1,6 @@
-var currentZoom = 11; //8; //12;
-var map;
-var gxpTimeLayerStore = {}
+let currentZoom = 11; //8; //12;
+let map;
+let gxpTimeLayerStore = {}
 
 
 function init() {
@@ -140,24 +140,24 @@ function initMap() {
     }).setView([46.494418, 6.743643], currentZoom);
 
 
-    var startDate = new Date();
+    let startDate = new Date();
     startDate.setUTCHours(0, 0, 0, 0);
 
     // start of TimeDimension manual instantiation
-    var timeDimension = new L.TimeDimension({
+    let timeDimension = new L.TimeDimension({
         period: "PT10S",
     });
     // helper to share the timeDimension object between all layers
     map.timeDimension = timeDimension;
     // otherwise you have to set the 'timeDimension' option on all layers.
 
-    var player = new L.TimeDimension.Player({
+    let player = new L.TimeDimension.Player({
         transitionTime: 1000,
         loop: false,
         startOver: true
     }, timeDimension);
 
-    var timeDimensionControlOptions = {
+    let timeDimensionControlOptions = {
         player: player,
         timeDimension: timeDimension,
         position: 'bottomleft',
@@ -168,7 +168,7 @@ function initMap() {
         timeSliderDragUpdate: true
     };
 
-    var timeDimensionControl = new L.Control.TimeDimension(timeDimensionControlOptions);
+    let timeDimensionControl = new L.Control.TimeDimension(timeDimensionControlOptions);
     map.addControl(timeDimensionControl);
 
 }

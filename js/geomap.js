@@ -1,10 +1,10 @@
-var currentZoom = 2; //8; //12;
-var map;
-var svgLayer
-var feature;
-var rankFeature;
-var toggleStatus;
-var mapSlider
+let currentZoom = 2; //8; //12;
+let map;
+let svgLayer
+let feature;
+let rankFeature;
+let toggleStatus;
+let mapSlider
 
 const mbAttr = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
     '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +

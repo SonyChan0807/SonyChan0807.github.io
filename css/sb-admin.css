@@ -102,8 +102,6 @@ body.fixed-nav {
     text-overflow: ellipsis; }
 
 @media (min-width: 992px) {
-  #mainNav .navbar-brand {
-    width: 250px; }
   #mainNav .navbar-collapse {
     overflow: visible;
     max-height: none; }
@@ -210,9 +208,6 @@ body.sidenav-toggled #mainNav.static-top #sidenavToggler i {
 .content-wrapper {
   overflow-x: hidden;
   background: white; }
-  @media (min-width: 992px) {
-    .content-wrapper {
-      margin-left: 250px; } }
 
 #sidenavToggler i {
   font-weight: 800; }
@@ -332,9 +327,6 @@ footer.sticky-footer {
   height: 56px;
   background-color: #e9ecef;
   line-height: 55px; }
-  @media (min-width: 992px) {
-    footer.sticky-footer {
-      width: calc(100% - 250px); } }
 
 @media (min-width: 992px) {
   body.sidenav-toggled footer.sticky-footer {

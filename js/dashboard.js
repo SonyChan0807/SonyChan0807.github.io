@@ -3,7 +3,7 @@
 // Initial call
 changeChart(2017,true);
 
-window.addEventListener("resize", redraw);
+//window.addEventListener("resize", redraw);
 
 function redraw() {
     // Pie chart

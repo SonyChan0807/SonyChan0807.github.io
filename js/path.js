@@ -1,6 +1,8 @@
+/* jshint esversion: 6 */
+
 let currentZoom = 11; //8; //12;
 let map;
-let gxpTimeLayerStore = {}
+let gxpTimeLayerStore = {};
 
 
 function init() {
@@ -11,7 +13,7 @@ function init() {
 }
 
 function reset() {
-    initMap()
+    initMap();
     $('#runner_list').html("");
     gxpTimeLayerStore = {};
 }
@@ -22,18 +24,18 @@ function addGroup() {
     let gender = $("#g_gender option:selected").text();
     let aGroup = $("#age_group option:selected").text();
     let aSpeed = $("#age_speed option:selected").text();
-    let tagId = `group_${year}_${dist}_${gender}_${aGroup}_${aSpeed}`
+    let tagId = `group_${year}_${dist}_${gender}_${aGroup}_${aSpeed}`;
     let iconParams = genIconParams();
 
     toggleErrorMSG("group_error", 0);
     toggleErrorMSG("person_error", 0);
     if (gxpTimeLayerStore[tagId] != undefined) {
-        toggleErrorMSG("group_error", 1)
+        toggleErrorMSG("group_error", 1);
         return;
     } else if (Object.keys(gxpTimeLayerStore).length === 5) {
         console.log(Object.keys(gxpTimeLayerStore).length);
         console.log("test");
-        toggleErrorMSG("group_error", 3)
+        toggleErrorMSG("group_error", 3);
         return;
     }
     addGroupLayer(tagId, year, dist.split("k")[0], gender, aGroup, aSpeed, iconParams);
@@ -45,44 +47,44 @@ function addPerson() {
     let gender = $("#per_gender option:selected").text();
     let name = $('#name').val().trim();
     let iconParams = genIconParams();
-    let tagId = `person_${year}_${dist}_${gender}_${name}`
+    let tagId = `person_${year}_${dist}_${gender}_${name}`;
     toggleErrorMSG("person_error", 0);
     toggleErrorMSG("group_error", 0);
     if (gxpTimeLayerStore[tagId] != undefined) {
-        toggleErrorMSG("person_error", 1)
+        toggleErrorMSG("person_error", 1);
         return;
     } else if (Object.keys(gxpTimeLayerStore).length === 5) {
-        toggleErrorMSG("person_error", 3)
+        toggleErrorMSG("person_error", 3);
         return;
     } else if (name == "") {
-        toggleErrorMSG("person_error", 4)
+        toggleErrorMSG("person_error", 4);
         return;
     }
 
-    addPersonLayer(tagId, year, dist.split("k")[0], gender, name, iconParams)
+    addPersonLayer(tagId, year, dist.split("k")[0], gender, name, iconParams);
 }
 
 
 function addInfo(type, tagId, year, dist, gender, secs, iconParams, name = "", aGroup = "", aSpeed = "") {
     let htmlStr = undefined
-    let record = moment.utc(secs * 1000).format('HH:mm:ss')
+    let record = moment.utc(secs * 1000).format('HH:mm:ss');
 
     if (type == "group") {
         // console.log(record)
         htmlStr = `<li class="list-group-item" id="${tagId}"><img src="${iconParams.imgSrc}">
         <p>${year}-${dist}-${gender}-${aGroup}-${ aSpeed}-${record}<p>
-        <button type="button" class="btn btn-danger btn-sm" id="test" onclick="deleteList('${tagId}')">Delete</button></li>`
+        <button type="button" class="btn btn-danger btn-sm" id="test" onclick="deleteList('${tagId}')">Delete</button></li>`;
     } else {
         console.log(name);
         htmlStr = `<li class="list-group-item" id="${tagId}"><img src="${iconParams.imgSrc}">
         <p>${year}-${dist}-${gender}-${name}-${record}</p>
-        <button type="button" class="btn btn-danger btn-sm" id="test" onclick="deleteList('${tagId}')">Delete</button></li>`
+        <button type="button" class="btn btn-danger btn-sm" id="test" onclick="deleteList('${tagId}')">Delete</button></li>`;
     }
     $("#runner_list").append(htmlStr);
 }
 
 function genIconParams() {
-    let colors = ["#3366cc", "#dc3912", "#ff9900", "#109618", "#990099", "#0099c6", "#dd4477", "#66aa00", "#b82e2e", "#316395", "#994499", "#22aa99", "#aaaa11", "#6633cc", "#e67300", "#8b0707", "#651067", "#329262", "#5574a6", "#3b3eac"]
+    let colors = ["#3366cc", "#dc3912", "#ff9900", "#109618", "#990099", "#0099c6", "#dd4477", "#66aa00", "#b82e2e", "#316395", "#994499", "#22aa99", "#aaaa11", "#6633cc", "#e67300", "#8b0707", "#651067", "#329262", "#5574a6", "#3b3eac"];
     let dashes = ["5, 5", "5, 10", "10, 5", "5, 1", "1, 5", "0.9", "15, 10, 5", "15, 10, 5, 10", "15, 10, 5, 10, 15", "5, 5, 1, 5"];
     let imgSrcs = ['img/runner-blue.png', 'img/runner-red.png', 'img/runner-green.png', 'img/runner-orange.png', 'img/runner-purple.png'];
 
@@ -90,9 +92,9 @@ function genIconParams() {
         'color': colors[Math.floor(Math.random() * colors.length)],
         'dash': dashes[Math.floor(Math.random() * dashes.length)],
         'imgSrc': imgSrcs[Math.floor(Math.random() * imgSrcs.length)],
-    }
+    };
     console.log(params);
-    return params
+    return params;
 }
 
 function deleteList(id) {
@@ -193,7 +195,7 @@ function addGroupLayer(tagId, year, dist, gender, aGroup, aSpeed, iconParams) {
         let gpx = genGPXFile(gpxFileName, timeSecs, "2017");
         gpx.then((data) => {
             addRunner(data, iconParams, tagId);
-        })
+        });
     });
 }
 
@@ -216,8 +218,7 @@ function addPersonLayer(tagId, year, dist, gender, name, iconParams) {
         let gpx = genGPXFile(gpxFileName, timeSecs, "2017");
         gpx.then((data) => {
             addRunner(data, iconParams, tagId);
-        })
-
+        });
     });
 }
 
@@ -230,14 +231,14 @@ function addRunner(data, iconParams, layerID) {
         popupAnchor: [5,-10]
     });
 
-    let userInfo = layerID.split('_')
-    let popupStr =  ""
+    let userInfo = layerID.split('_');
+    let popupStr =  "";
     if (userInfo[0] == 'group'){
         // `group_${year}_${dist}_${gender}_${aGroup}_${aSpeed}`
-        popupStr = `${userInfo[1]} ${userInfo[2]} ${userInfo[3]} </br> ${userInfo[4]} ${userInfo[5]}`
+        popupStr = `${userInfo[1]} ${userInfo[2]} ${userInfo[3]} </br> ${userInfo[4]} ${userInfo[5]}`;
     } else {
         // `person_${year}_${dist}_${gender}_${name}`
-        popupStr = `${userInfo[1]} ${userInfo[2]} ${userInfo[3]} </br> ${userInfo[4]}`
+        popupStr = `${userInfo[1]} ${userInfo[2]} ${userInfo[3]} </br> ${userInfo[4]}`;
     }
 
     let customLayer = L.geoJson(null, {
@@ -247,11 +248,11 @@ function addRunner(data, iconParams, layerID) {
                         icon: icon,
                         }).bindPopup( popupStr);
                 marker.on('mouseover', (e) => {
-                        marker.openPopup();
-                    })
+                    marker.openPopup();
+                });
                 marker.on('mouseout', (e) => {
-                        marker.closePopup();
-                    });
+                    marker.closePopup();
+                });
                 return marker;
                 }
             return L.circleMarker(latLng);
@@ -260,7 +261,7 @@ function addRunner(data, iconParams, layerID) {
             return {
                 color: iconParams.color,
                 dashArray: iconParams.dash
-            }
+            };
         }
     });
 
@@ -270,15 +271,13 @@ function addRunner(data, iconParams, layerID) {
         });
     });
 
-
-
     let gpxTimeLayer = L.timeDimension.layer.geoJson(gpxLayer, {
         updateTimeDimension: true,
         addlastPoint: true,
         waitForReady: true
     });
 
-    gxpTimeLayerStore[layerID] = gpxTimeLayer
+    gxpTimeLayerStore[layerID] = gpxTimeLayer;
     console.log(gxpTimeLayerStore);
     console.log(gpxTimeLayer);
     gpxTimeLayer.addTo(map);
@@ -300,8 +299,8 @@ function genGPXFile(filePath, secs, startTime) {
                     let trk = $(this);
                     let timeContext = isoTime.add(timeGap, 'seconds').toISOString();
                     // console.log(timeContext);
-                    trk.append(`<time>${timeContext}</time>`)
-                    let userNum = Object.keys(gxpTimeLayerStore).length
+                    trk.append(`<time>${timeContext}</time>`);
+                    let userNum = Object.keys(gxpTimeLayerStore).length;
                     let lon = parseFloat(trk.attr('lon')) + 0.001 * userNum;
                     trk.attr('lon', lon.toString());
                     multiplier += 1;
@@ -315,7 +314,7 @@ function genGPXFile(filePath, secs, startTime) {
 
 // Time format: "1:56:27.0"
 function getSecs(record) {
-    let time = /(\d+):(\d+):(\d+).(\d+)/i.exec(record)
+    let time = /(\d+):(\d+):(\d+).(\d+)/i.exec(record);
     return parseInt(time[1]) * 3600 + parseInt(time[2]) * 60 + parseInt(time[3]);
 }
 
@@ -323,19 +322,19 @@ function toggleErrorMSG(id, type) {
     let errorMSG = '';
     switch (type) {
         case 1:
-            errorMSG = "Runner is on the map!"
+            errorMSG = "Runner is on the map!";
             break;
         case 2:
-            errorMSG = "Runner not found"
+            errorMSG = "Runner not found";
             break;
         case 3:
-            errorMSG = "Excess 5 runners"
+            errorMSG = "Excess 5 runners";
             break;
         case 4:
-            errorMSG = "Runner's name is empty"
+            errorMSG = "Runner's name is empty";
             break;
         default:
-            errorMSG = ""
+            errorMSG = "";
     }
     console.log(errorMSG);
     $(`#${id}`).text(errorMSG);

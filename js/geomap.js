@@ -1,6 +1,8 @@
+/* jshint esversion: 6 */
+
 let currentZoom = 2; //8; //12;
 let map;
-let svgLayer
+let svgLayer;
 let feature;
 let rankFeature;
 let toggleStatus;
@@ -36,12 +38,12 @@ const height2 = containerHeight - margin2.top - margin2.bottom;
 
 function init() {
     yearSlider.on('change', () => {
-        updateGraph(yearSlider.getValue())
+        updateGraph(yearSlider.getValue());
     });
 
-    initMap()
-    updateGraph(2017)
-    toggleSetting()
+    initMap();
+    updateGraph(2017);
+    toggleSetting();
 }
 
 
@@ -49,7 +51,7 @@ function init() {
 function updateGraph(year) {
     drawMap(year);
     drawBarAge(year);
-    showRunner()
+    showRunner();
 }
 
 function initMap() {
@@ -95,13 +97,13 @@ function drawMap(year) {
         });
 
         d3.geoPath().projection(transform);
-        map.on("moveend", updateFeature)
+        map.on("moveend", updateFeature);
         updateFeature();
     });
 
     d3.csv('data/marathon_top10.csv', (data) => {
             data.forEach(d => {
-                d.LatLng = new L.LatLng(parseFloat(d.latitude), parseFloat(d.longitude))
+                d.LatLng = new L.LatLng(parseFloat(d.latitude), parseFloat(d.longitude));
             });
 
             rankFeature = plotRank(g, data);
@@ -114,7 +116,7 @@ function drawMap(year) {
             });
 
             d3.geoPath().projection(transform);
-            map.on("moveend", updateRank)
+            map.on("moveend", updateRank);
             updateRank();
         }
 
@@ -123,7 +125,7 @@ function drawMap(year) {
 
 function updateFeature() {
     currentZoom = map.getZoom();
-    console.log(feature)
+    console.log(feature);
     feature.attr("transform",
         (d) => {
             return "translate(" + map.latLngToLayerPoint(d.LatLng).x + "," +
@@ -149,8 +151,8 @@ function plotCircle(g, data) {
         .style("fill", '#ccebc5')
         .attr('class', (d) => `${d.gender}_${d['age group']}_map $`)
         .attr('id', 'map_circle')
-        .attr("r", (d) => 1.5)
-    return circles
+        .attr("r", (d) => 1.5);
+    return circles;
 }
 
 function plotRank(g, data) {
@@ -161,26 +163,25 @@ function plotRank(g, data) {
         .classed("rank_circles", true)
         .style("opacity", 0.0)
         .attr('id', d => `rank_${d['index']}`)
-        .attr("r", (d) => 5)
-    return ranks
+        .attr("r", (d) => 5);
+    return ranks;
 }
 
 function processData(data, year) {
-    const newData = data.filter((d) => d['race year'] == year)
+    const newData = data.filter((d) => d['race year'] == year);
     const groupByCity = {};
 
     newData.forEach(d => {
-        d.LatLng = new L.LatLng(parseFloat(d.latitude), parseFloat(d.longitude))
+        d.LatLng = new L.LatLng(parseFloat(d.latitude), parseFloat(d.longitude));
     });
     return newData;
 }
 
 function drawBarAge(year) {
-
     d3.csv(marathon_data, (data) => {
         const newData = data.filter(d => d["race year"] == year);
-        const maleCF = crossfilter(newData.filter(d => d.gender == 'male'))
-        const femaleCF = crossfilter(newData.filter(d => d.gender == 'female'))
+        const maleCF = crossfilter(newData.filter(d => d.gender == 'male'));
+        const femaleCF = crossfilter(newData.filter(d => d.gender == 'female'));
 
         let maleDimension = maleCF.dimension((d) => d['age group']);
         let femaleDimension = femaleCF.dimension((d) => d['age group']);
@@ -198,18 +199,16 @@ function drawBarAge(year) {
             key => {
                 let obj = {};
                 obj.label = key;
-                obj.male = combined[key].male,
-                    obj.female = combined[key].female
-                return obj
+                obj.male = combined[key].male;
+                obj.female = combined[key].female;
+                return obj;
             });
 
         updateBarAge(finalData, margin2, width2, height2);
     });
-
 }
 
 function updateBarAge(dataset, margin, width, height) {
-
     const x0 = d3.scaleBand()
         .rangeRound([0, width])
         .padding(0.1);
@@ -223,7 +222,7 @@ function updateBarAge(dataset, margin, width, height) {
 
     const xAxis = d3.axisBottom(x0);
 
-    const yAxis = d3.axisLeft(y)
+    const yAxis = d3.axisLeft(y);
 
 
     const divTooltip = d3.select("body").append("div").attr("class", "toolTip");
@@ -289,7 +288,7 @@ function updateBarAge(dataset, margin, width, height) {
         .style("fill", d => color(d.name))
         .on("mouseover", (d) => {
             let item = d3.select(`#${d.name}_${d.label}`);
-            item.attr("class", "highlight")
+            item.attr("class", "highlight");
             divTooltip.style("left", d3.event.pageX + 10 + "px")
                 .style("top", d3.event.pageY - 25 + "px")
                 .style("display", "inline-block")
@@ -297,16 +296,16 @@ function updateBarAge(dataset, margin, width, height) {
                     "<br>" + item.attr('counts'));
             d3.selectAll("#map_circle").attr('style', "fill: none");
             d3.selectAll(`.${d.name}_${d.label}_map`).attr('style', "fill: red");
-            d3.selectAll("#rank_circles").style("opacity", 0.0)
+            d3.selectAll("#rank_circles").style("opacity", 0.0);
         })
         .on("mouseout", function (d) {
-            d3.select(`#${d.name}_${d.label}`).attr('class', null)
+            d3.select(`#${d.name}_${d.label}`).attr('class', null);
 
             d3.selectAll("#map_circle")
                 .style("stroke", '#ccebc5')
                 .style("opacity", 0.5)
-                .style("fill", '#ccebc5')
-            d3.selectAll("#rank_circles").style("opacity", 0.5)
+                .style("fill", '#ccebc5');
+            d3.selectAll("#rank_circles").style("opacity", 0.5);
             divTooltip.style("display", "none");
         }).transition()
         .duration(1000);
@@ -334,17 +333,17 @@ function updateBarAge(dataset, margin, width, height) {
 function toggleSetting() {
     $(function () {
         $('#toggle-event').change(function () {
-            toggleStatus = $(this).prop('checked')
+            toggleStatus = $(this).prop('checked');
             console.log(toggleStatus);
             if (toggleStatus) {
-                d3.select('#updateRank').classed('disabled', false).on('click', showRunner)
+                d3.select('#updateRank').classed('disabled', false).on('click', showRunner);
                 showRunner();
             } else {
                 // disable Update button
                 d3.select('#updateRank').classed('disabled', true).on('click', d => 0);
-                removeRunner()
+                removeRunner();
             }
-        })
+        });
     });
 }
 
@@ -370,8 +369,8 @@ function showRunner() {
             <td>${d['name']}</td>
             <td>${d['city']}</td>
             <td>${d['country']}</td>
-            </tr>`
-            $("#rank_tbody").append(trStr)
+            </tr>`;
+            $("#rank_tbody").append(trStr);
         });
 
 
@@ -386,11 +385,11 @@ function showRunner() {
             .style("opacity", 1)
             .style("fill", 'steelblue')
             .attr('id', d => `rank_${d['index']}`)
-            .attr("r", (d) => 6)
+            .attr("r", (d) => 6);
 
         // add list hover effect
         $('.rankTr').each(function () {
-            let row = $(this)
+            let row = $(this);
             let idx = row.attr('id').split("_")[2];
             let runnerCenter = [parseFloat(row.attr('lat')), parseFloat(row.attr('lon'))];
             row.mouseover(function () {
@@ -399,36 +398,36 @@ function showRunner() {
                         animate: true,
                         duration: 1.0
                     }
-                })
+                });
                 d3.selectAll("#map_circle").attr('style', "fill: none");
-                console.log($(`#rank_${idx}`))
+                console.log($(`#rank_${idx}`));
                 d3.select(`#rank_${idx}`)
                     .style("stroke", 'yellow')
                     .style("opacity", 1)
-                    .style("fill", 'yellow')
+                    .style("fill", 'yellow');
             }).mouseout(function () {
                 map.setView(rankCenter, 6, {
                     pan: {
                         animate: true,
                         duration: 1.0
                     }
-                })
+                });
                 d3.selectAll("#map_circle")
                     .style("stroke", '#ccebc5')
                     .style("opacity", 0.5)
-                    .style("fill", '#ccebc5')
+                    .style("fill", '#ccebc5');
 
                 d3.select(`#rank_${idx}`)
                     .style("stroke", 'steelblue')
                     .style("opacity", 1)
                     .style("fill", 'steelblue')
                     .attr('id', d => `rank_${d['index']}`)
-                    .attr("r", (d) => 6)
-            })
-        })
+                    .attr("r", (d) => 6);
+            });
+        });
     });
 
-};
+}
 
 function removeRunner() {
     // remove list
@@ -443,7 +442,7 @@ function removeRunner() {
             animate: true,
             duration: 1.0
         }
-    })
+    });
 }
 
-window.addEventListener('load', init)
+window.addEventListener('load', init);

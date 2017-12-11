@@ -1,3 +1,4 @@
+/* jshint esversion: 6 */
 console.log(d3.schemeCategory20b);
 
 yearSlider.on('change', function(){
@@ -26,9 +27,9 @@ let xScale =  d3.scaleLinear()
 let tree = d3.cluster()
              .size([height, width - 600])
              .separation(function separate(a, b) {
-                  return a.parent == b.parent
-                  || a.parent.parent == b.parent
-                  || a.parent == b.parent.parent ? 2 : 3;
+                  return a.parent == b.parent ||
+                    a.parent.parent == b.parent ||
+                    a.parent == b.parent.parent ? 2 : 3;
               });
 
 let stratify = d3.stratify()
@@ -43,7 +44,7 @@ function updateDendrogram(value){
           age_groups = ['20-30','30-40','40-50','other'],
           genders = ['male','female'];
 
-      let updateData = [{'id':value.toString(),'value':'','color':''}]
+      let updateData = [{'id':value.toString(),'value':'','color':''}];
 
       let alldata = crossfilter(data),
           dataByYear = alldata.dimension(function(d) { return d.year; }),
@@ -99,10 +100,10 @@ function updateDendrogram(value){
                   .enter().append("path")
                   .attr("class", "link")
                   .attr("d", function(d) {
-                      return "M" + d.y + "," + d.x
-                              + "C" + (d.parent.y + 100) + "," + d.x
-                              + " " + (d.parent.y + 100) + "," + d.parent.x
-                              + " " + d.parent.y + "," + d.parent.x;
+                      return "M" + d.y + "," + d.x +
+                          "C" + (d.parent.y + 100) + "," + d.x +
+                          " " + (d.parent.y + 100) + "," + d.parent.x +
+                          " " + d.parent.y + "," + d.parent.x;
                   });
 
       // Setup position for every datum; Applying different css classes to parents and leafs.
@@ -178,9 +179,9 @@ function updateDendrogram(value){
 
           let ballGMovement = ballG.transition()
                   .duration(400)
-                  .attr("transform", "translate(" + (d.y
-                          + xScale(d.data.value) + 80) + ","
-                          + (d.x + 1) + ")");
+                  .attr("transform", "translate(" + (d.y +
+                      xScale(d.data.value) + 80) + "," +
+                      (d.x + 1) + ")");
 
           ballGMovement.select("circle")
                   .style("fill", d.data.color)

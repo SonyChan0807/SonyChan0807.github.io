@@ -1,3 +1,5 @@
+/* jshint esversion: 6 */
+
 // Initial call
 changeChart(2017,true);
 
@@ -91,7 +93,7 @@ function redraw() {
 
     chartAvg.append("g")
         .attr("class", "y axis")
-        .call(yAxis)
+        .call(yAxis);
 
     chartAvg.append("g")
         .attr("class", "xAxis")
@@ -117,7 +119,7 @@ function redraw() {
 
     chartMin.append("g")
         .attr("class", "y axis")
-        .call(yAxis)
+        .call(yAxis);
 
     chartMin.append("g")
         .attr("class", "xAxis")
@@ -143,7 +145,7 @@ function redraw() {
 
     chartMax.append("g")
         .attr("class", "y axis")
-        .call(yAxis)
+        .call(yAxis);
 
     chartMax.append("g")
         .attr("class", "xAxis")
@@ -330,7 +332,7 @@ let yAxis = d3.axisLeft(yChart);
 
 chartAvg.append("g")
     .attr("class", "y axis")
-    .call(yAxis)
+    .call(yAxis);
 
 chartAvg.append("g")
     .attr("class", "xAxis")
@@ -356,7 +358,7 @@ chartAvg
 
 chartMin.append("g")
     .attr("class", "y axis")
-    .call(yAxis)
+    .call(yAxis);
 
 chartMin.append("g")
     .attr("class", "xAxis")
@@ -382,7 +384,7 @@ chartMin
 
 chartMax.append("g")
     .attr("class", "y axis")
-    .call(yAxis)
+    .call(yAxis);
 
 chartMax.append("g")
     .attr("class", "xAxis")
@@ -408,16 +410,16 @@ chartMax
 
 function updatePiechart(data) {
   let slice = svg.select(".slices").selectAll("path.slice")
-        .data(pie(data), function(d){ return d.data.label })
+      .data(pie(data), function(d){ return d.data.label; })
         .attr("class", function(d) {
-            return d3.select(this).attr("class") + " " +  "m_" + 
-            d.data.label.replace(/\s/g, "").replace("-","_")
+            return d3.select(this).attr("class") + " " +  "m_" +
+                d.data.label.replace(/\s/g, "").replace("-","_");
         });
 
     slice.enter()
         .insert("path")
         .style("fill", function(d) { return color(d.data.label); })
-        .attr("class", "slice")
+        .attr("class", "slice");
 
     slice
         .transition().duration(1000)
@@ -428,7 +430,7 @@ function updatePiechart(data) {
             return function(t) {
                 return arc(interpolate(t));
             };
-        })
+        });
     slice
         .on("mouseover", function(d){
             div.style("left", d3.event.pageX+10+"px");
@@ -475,7 +477,7 @@ function updatePiechart(data) {
         .text(function(d) { return d; });
 
     let text = svg.select(".labelName").selectAll("text")
-        .data(pie(data), function(d){ return d.data.label });
+        .data(pie(data), function(d){ return d.data.label; });
 
     text.enter()
         .append("text")
@@ -519,7 +521,7 @@ function updatePiechart(data) {
         .remove();
 
     let polyline = svg.select(".lines").selectAll("polyline")
-        .data(pie(data), function(d){ return d.data.label });
+        .data(pie(data), function(d){ return d.data.label; });
 
     polyline.enter()
         .append("polyline");
@@ -569,14 +571,14 @@ function updateAvgHistogram(data){
     })
     .attr("class", function(d) {
         return d3.select(this).attr("class") + " " +  "m_" + 
-        d.label.replace(/\s/g, "").replace("-","_")
+            d.label.replace(/\s/g, "").replace("-","_");
     })
     .on("mouseout", function(d){ div2.style("display", "none");
     let id = "m_" + d.label.replace(/\s/g, "").replace("-","_");
     d3.selectAll(`.${id}`).attr("stroke", "None").attr("stroke-width", 0);
     })
     .attr("width", barWidth - 1)
-    .attr("x", function(d, i){ return i * barWidth + 1 })
+    .attr("x", function(d, i){ return i * barWidth + 1; })
     .attr("y", height2)
     .attr("height", 0)
     .transition()
@@ -592,7 +594,7 @@ function updateAvgHistogram(data){
         .attr("height", function(d) { return height2 - yChart(d.avgTime); });
 
   chartAvg.select('.y')
-      .call(yAxis)
+      .call(yAxis);
 
   chartAvg.select('.xAxis')
     .attr("transform", "translate(0," + height2 + ")")
@@ -625,7 +627,7 @@ function updateFastestHistogram(data){
         })
         .attr("class", function(d) {
             return d3.select(this).attr("class") + " " +  "m_" + 
-            d.label.replace(/\s/g, "").replace("-","_")
+                d.label.replace(/\s/g, "").replace("-","_");
         })
         .on("mouseover", function(d){
             div2.style("left", d3.event.pageX+10+"px");
@@ -639,7 +641,7 @@ function updateFastestHistogram(data){
         let id = "m_" + d.label.replace(/\s/g, "").replace("-","_");
         d3.selectAll(`.${id}`).attr("stroke", "None").attr("stroke-width", 0);})
         .attr("width", barWidth - 1)
-        .attr("x", function(d, i){ return i * barWidth + 1 })
+        .attr("x", function(d, i){ return i * barWidth + 1; })
         .attr("y", height2)
         .attr("height", 0)
         .transition()
@@ -655,7 +657,7 @@ function updateFastestHistogram(data){
         .attr("height", function(d) { return height2 - yChart(d.minTime); });
 
     chartMin.select('.y')
-        .call(yAxis)
+        .call(yAxis);
 
     chartMin.select('.xAxis')
         .attr("transform", "translate(0," + height2 + ")")
@@ -688,7 +690,7 @@ function updateSlowestHistogram(data){
         })
         .attr("class", function(d) {
             return d3.select(this).attr("class") + " " +  "m_" + 
-            d.label.replace(/\s/g, "").replace("-","_")
+                d.label.replace(/\s/g, "").replace("-","_");
         })
         .on("mouseover", function(d){
             div2.style("left", d3.event.pageX+10+"px");
@@ -703,7 +705,7 @@ function updateSlowestHistogram(data){
         let id = "m_" + d.label.replace(/\s/g, "").replace("-","_");
         d3.selectAll(`.${id}`).attr("stroke", "None").attr("stroke-width",0 );})
         .attr("width", barWidth - 1)
-        .attr("x", function(d, i){ return i * barWidth + 1 })
+        .attr("x", function(d, i){ return i * barWidth + 1; })
         .attr("y", height2)
         .attr("height", 0)
         .transition()
@@ -719,7 +721,7 @@ function updateSlowestHistogram(data){
         .attr("height", function(d) { return height2 - yChart(d.maxTime); });
 
     chartMax.select('.y')
-        .call(yAxis)
+        .call(yAxis);
 
     chartMax.select('.xAxis')
         .attr("transform", "translate(0," + height2 + ")")
@@ -744,4 +746,4 @@ String.prototype.toHHMMSS = function () {
     if (minutes < 10) {minutes = "0"+minutes;}
     if (seconds < 10) {seconds = "0"+seconds;}
     return hours+':'+minutes+':'+seconds;
-}
+};

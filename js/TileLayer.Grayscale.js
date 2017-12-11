@@ -1,3 +1,5 @@
+/* jshint esversion: 6 */
+
 /*
  * L.TileLayer.Grayscale is a regular tilelayer with grayscale makeover.
  */

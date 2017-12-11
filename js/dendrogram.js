@@ -10,7 +10,7 @@ updateDendrogram(2017);
 
 d3.selectAll("svg").remove();
 let margin = {top: 0, right: 10, bottom: 0, left: 50};
-let width = 1000;
+let width = 950;
 let height = 500;
 
 let svg = d3.select("#dendrogram")

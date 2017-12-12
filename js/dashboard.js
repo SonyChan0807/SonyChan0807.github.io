@@ -438,7 +438,7 @@ function updatePiechart(data) {
             div.style("display", "inline-block");
             div.html((d.data.label)+"<br>"+(d.data.value)+"%");
             let id = "m_" + d.data.label.replace(/\s/g, "").replace("-","_");
-            d3.selectAll(`.${id}`).attr("stroke", "black").attr("stroke-width", 1);
+            d3.selectAll(`.${id}`).attr("stroke", "black").attr("stroke-width", 3);
 
         });
     slice

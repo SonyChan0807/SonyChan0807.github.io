@@ -20,7 +20,6 @@ const grayscale = L.tileLayer(mbUrl, {
         id: 'mapbox.streets',
         attribution: mbAttr
     });
-// const marathon = "data/marathon_data.csv";
 const marathon_age = "data/marathon_city_counts_top20.csv";
 const marathon_data = "data/marathon_data.csv";
 
@@ -51,7 +50,6 @@ function init() {
 function updateGraph(year) {
     drawMap(year);
     drawBarAge(year);
-    showRunner();
 }
 
 function initMap() {
@@ -85,7 +83,6 @@ function drawMap(year) {
 
     d3.csv(marathon_age, (data) => {
         const finalData = processData(data, year);
-        console.log('test1');
         feature = plotCircle(g, finalData);
 
         // // create a d3.geoPath to convert GeoJSON to SVG
@@ -125,13 +122,11 @@ function drawMap(year) {
 
 function updateFeature() {
     currentZoom = map.getZoom();
-    console.log(feature);
     feature.attr("transform",
         (d) => {
             return "translate(" + map.latLngToLayerPoint(d.LatLng).x + "," +
                 map.latLngToLayerPoint(d.LatLng).y + ")";
         });
-
 }
 
 function updateRank() {
@@ -295,7 +290,11 @@ function updateBarAge(dataset, margin, width, height) {
                 .html(d.label + "<br>" + item.attr('name') +
                     "<br>" + item.attr('counts'));
             d3.selectAll("#map_circle").attr('style', "fill: none");
-            d3.selectAll(`.${d.name}_${d.label}_map`).attr('style', "fill: red");
+            if (d.name == 'male'){
+                d3.selectAll(`.${d.name}_${d.label}_map`).attr('style', "fill: steelblue");
+            }else {
+                d3.selectAll(`.${d.name}_${d.label}_map`).attr('style', "fill: red");
+            }
             d3.selectAll("#rank_circles").style("opacity", 0.0);
         })
         .on("mouseout", function (d) {
@@ -334,7 +333,6 @@ function toggleSetting() {
     $(function () {
         $('#toggle-event').change(function () {
             toggleStatus = $(this).prop('checked');
-            console.log(toggleStatus);
             if (toggleStatus) {
                 d3.select('#updateRank').classed('disabled', false).on('click', showRunner);
                 showRunner();
@@ -400,7 +398,6 @@ function showRunner() {
                     }
                 });
                 d3.selectAll("#map_circle").attr('style', "fill: none");
-                console.log($(`#rank_${idx}`));
                 d3.select(`#rank_${idx}`)
                     .style("stroke", 'yellow')
                     .style("opacity", 1)

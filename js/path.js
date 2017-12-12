@@ -8,7 +8,6 @@ let gxpTimeLayerStore = {};
 function init() {
     document.getElementById("addGroup").addEventListener('click', addGroup);
     document.getElementById("addPerson").addEventListener('click', addPerson);
-    console.log(gxpTimeLayerStore);
     initMap();
 }
 
@@ -48,8 +47,9 @@ function addPerson() {
     let name = $('#name').val().trim();
     let iconParams = genIconParams();
     let tagId = `person_${year}_${dist}_${gender}_${name}`;
+
     toggleErrorMSG("person_error", 0);
-    toggleErrorMSG("group_error", 0);
+    toggleErrorMSG("group_error", 0);   
     if (gxpTimeLayerStore[tagId] != undefined) {
         toggleErrorMSG("person_error", 1);
         return;
@@ -69,23 +69,25 @@ function addInfo(type, tagId, year, dist, gender, secs, iconParams, name = "", a
     let htmlStr = undefined
     let record = moment.utc(secs * 1000).format('HH:mm:ss');
 
+    console.log(iconParams);
+    let iconSVG = `<li class="list-group-item" id="${tagId}"> 
+    <div><img src="${iconParams.imgSrc}"><svg height="20" width="250">
+    <line stroke-dasharray="${iconParams.dash}" stroke="${iconParams.color}" stroke-width="4" x1="15" y1="13" x2="240" y2="13" /></svg></div>`
+    
+    let deleteButton = `<button type="button" class="btn btn-danger btn-sm" id="test" onclick="deleteList('${tagId}')">Delete</button></li>`;
+    
     if (type == "group") {
-        // console.log(record)
-        htmlStr = `<li class="list-group-item" id="${tagId}"><img src="${iconParams.imgSrc}">
-        <p>${year}-${dist}-${gender}-${aGroup}-${ aSpeed}-${record}<p>
-        <button type="button" class="btn btn-danger btn-sm" id="test" onclick="deleteList('${tagId}')">Delete</button></li>`;
+        htmlStr = iconSVG + "<div>" + `<p>${year}-${dist}-${gender}-${aGroup}-${ aSpeed}-${record}<p>` + deleteButton + "</div>";
     } else {
-        console.log(name);
-        htmlStr = `<li class="list-group-item" id="${tagId}"><img src="${iconParams.imgSrc}">
-        <p>${year}-${dist}-${gender}-${name}-${record}</p>
-        <button type="button" class="btn btn-danger btn-sm" id="test" onclick="deleteList('${tagId}')">Delete</button></li>`;
+
+        htmlStr = iconSVG + "<div>" +`<p>${year}-${dist}-${gender}-${name}-${record}</p>` + deleteButton + "</div>";     
     }
     $("#runner_list").append(htmlStr);
 }
 
 function genIconParams() {
     let colors = ["#3366cc", "#dc3912", "#ff9900", "#109618", "#990099", "#0099c6", "#dd4477", "#66aa00", "#b82e2e", "#316395", "#994499", "#22aa99", "#aaaa11", "#6633cc", "#e67300", "#8b0707", "#651067", "#329262", "#5574a6", "#3b3eac"];
-    let dashes = ["5, 5", "5, 10", "10, 5", "5, 1", "1, 5", "0.9", "15, 10, 5", "15, 10, 5, 10", "15, 10, 5, 10, 15", "5, 5, 1, 5"];
+    let dashes = ["5, 5", "5, 10", "10, 5", "6, 3", "15, 10, 5", "15, 10, 5, 10", "15, 10, 5, 10, 15", "5, 5, 1, 5"];
     let imgSrcs = ['img/runner-blue.png', 'img/runner-red.png', 'img/runner-green.png', 'img/runner-orange.png', 'img/runner-purple.png'];
 
     let params = {
@@ -93,7 +95,6 @@ function genIconParams() {
         'dash': dashes[Math.floor(Math.random() * dashes.length)],
         'imgSrc': imgSrcs[Math.floor(Math.random() * imgSrcs.length)],
     };
-    console.log(params);
     return params;
 }
 
@@ -101,14 +102,7 @@ function deleteList(id) {
 
     // Remove from list
     $(`#${id}`).remove();
-
     // Remove layer
-
-    // console.log('layer delete')
-    // console.log(id);
-    // console.log(gxpTimeLayerStore);
-    // console.log(gxpTimeLayerStore[id]);
-    // console.log(gxpTimeLayerStore[Object.keys(gxpTimeLayerStore)[0]])
     gxpTimeLayerStore[id].remove();
     delete gxpTimeLayerStore[id];
 
@@ -207,11 +201,8 @@ function addPersonLayer(tagId, year, dist, gender, name, iconParams) {
             toggleErrorMSG("person_error", 2);
             return;
         }
-        console.log(selectedData);
         let time = selectedData[0]['time'];
-        console.log(time);
         let timeSecs = getSecs(time);
-        console.log(timeSecs);
         addInfo("person", tagId, year, dist, gender, timeSecs, iconParams, name, "", "");
 
         let gpxFileName = `data/marathon_${dist}.gpx`;
@@ -278,8 +269,6 @@ function addRunner(data, iconParams, layerID) {
     });
 
     gxpTimeLayerStore[layerID] = gpxTimeLayer;
-    console.log(gxpTimeLayerStore);
-    console.log(gpxTimeLayer);
     gpxTimeLayer.addTo(map);
 }
 
@@ -298,7 +287,6 @@ function genGPXFile(filePath, secs, startTime) {
                 trks.each(function () {
                     let trk = $(this);
                     let timeContext = isoTime.add(timeGap, 'seconds').toISOString();
-                    // console.log(timeContext);
                     trk.append(`<time>${timeContext}</time>`);
                     let userNum = Object.keys(gxpTimeLayerStore).length;
                     let lon = parseFloat(trk.attr('lon')) + 0.001 * userNum;
@@ -336,7 +324,6 @@ function toggleErrorMSG(id, type) {
         default:
             errorMSG = "";
     }
-    console.log(errorMSG);
     $(`#${id}`).text(errorMSG);
 }
 

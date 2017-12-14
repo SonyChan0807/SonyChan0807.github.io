@@ -4,3 +4,7 @@
 .row{
 	text-align: center;
 }
+.intro{
+	text-align:justify;
+	font-size: 16px
+  }

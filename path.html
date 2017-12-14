@@ -11,8 +11,8 @@
   <link rel="stylesheet" href="https://cdn.rawgit.com/socib/Leaflet.TimeDimension/master/dist/leaflet.timedimension.control.min.css"></link>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.css" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
-        crossorigin="anonymous">
-  
+    crossorigin="anonymous">
+
   <link href="css/sb-admin.css" rel="stylesheet">
   <link rel="stylesheet" href='css/main.css'>
   <link rel="icon" href="/img/logo.png">
@@ -27,8 +27,15 @@
       <!-- Data viz description-->
       <div class="card mb-3">
         <div class="card-header">
-          <i class="fa fa-info-circle"></i> Data visualization description TBD</div>
+          <i class="fa fa-info-circle"></i> Data visualization description</div>
         <div class="card-body">
+          <p class="intro">The purpose of this visualization is to visualize how the runner moves on the path along the time. And it allow
+            the user to add more than one runners and compare their speed and show the how big difference it is among the
+            runners. And for the runners who wants to compare their records to others can also use this visualization to
+            illustrate the difference. This pages contains two blocks, one is marathon map which is the route of Lausanne
+            marathon and the other is the select menu which allows users to filter their desired player and display it on
+            the map. Moreover, the user could select at most five people from arbitrary year, distance, group and person.
+          </p>
         </div>
       </div>
 
@@ -49,114 +56,114 @@
               <i class="fa fa-cog"></i> Select Menu</div>
             <div class="card-body" style="overflow: scroll">
 
-                <div id="add_scroll">
-                        <div class="sub_option" id="race">
-                          <h4>
-                            <span class="badge badge-secondary">Race</span>
-                            <button type="button" class="btn btn-danger btn-sm" onclick="reset()">Reset</btton>
-                          </h4>
-                          <div class="row">
-                            <div class="col-md-4">
-                              <label for="year">Year:</label>
-                              <select class="form-control" id="year">
-                                <option>2017</option>
-                                <option>2016</option>
-                                <option>2015</option>
-                                <option>2014</option>
-                                <option>2013</option>
-                                <option>2012</option>
-                                <option>2011</option>
-                                <option>2010</option>
-                                <option>2009</option>
-                                <option>2008</option>
-                                <option>2007</option>
-                                <option>2006</option>
-                                <option>2005</option>
-                                <option>2004</option>
-                                <option>2003</option>
-                                <option>2002</option>
-                              </select>
-                            </div>
-                            <div class="col-md-4">
-                              <label for="distance">Distance:</label>
-                              <select class="form-control" id="dist">
-                                <option>42km</option>
-                                <option>21km</option>
-                                <option>10km</option>
-                              </select>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="sub_option" id="group">
-                          <div>
-                            <h4>
-                              <span class="badge badge-secondary">Group</span>
-                              <button type="button" class="btn btn-primary btn-sm" id="addGroup">Add</button>
-                            </h4>
-                            <div class="error_msg" id="group_error"></div>
-                          </div>
-                          <div class="row sub_card">
-                            <div class="col-md-4">
-                              <label for="genger">Gender</label>
-                              <select class="form-control" id="g_gender">
-                                <option>Male</option>
-                                <option>Female</option>
-                              </select>
-                            </div>
-                            <div class="col-md-4">
-                              <label for="age_group">Age</label>
-                              <select class="form-control" id="age_group">
-                                <option>20-30</option>
-                                <option>30-40</option>
-                                <option>40-50</option>
-                                <option>Other</option>
-                              </select>
-                            </div>
-                            <div class="col-md-4">
-                              <label for="performance">Speed</label>
-                              <select class="form-control" id="age_speed">
-                                <option>Fastest</option>
-                                <option>Slowest</option>
-                                <option>Average</option>
-                              </select>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="sub_option" id="person">
-                          <div>
-                            <h4>
-                              <span class="badge badge-secondary">Person</span>
-                              <button type="button" class="btn btn-primary btn-sm" id="addPerson">Add</button>
-                            </h4>
-                            <div class="error_msg" id="person_error"></div>
-                          </div>
-                          <div class="row sub_card">
-                            <div class="col-md-4">
-                              <label for="P_Gender">Gender</label>
-                              <select class="form-control" id="per_gender">
-                                <option>Male</option>
-                                <option>Female</option>
-                              </select>
-                            </div>
-                            <div class="col-md-6">
-                              <label for="name">Register Name</label>
-                              <input type="text" placeholder="Runner name" class="form-control" id="name">
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="card sub_option" style="width: 100%;">
-                        <div class="card-header">Runner on the map</div>
-                        <ul id="runner_list" class="list-group list-group-flush">
-                        </ul>
-                      </div>
+              <div id="add_scroll">
+                <div class="sub_option" id="race">
+                  <h4>
+                    <span class="badge badge-secondary">Race</span>
+                    <button type="button" class="btn btn-danger btn-sm" onclick="reset()">Reset</btton>
+                  </h4>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <label for="year">Year:</label>
+                      <select class="form-control" id="year">
+                        <option>2017</option>
+                        <option>2016</option>
+                        <option>2015</option>
+                        <option>2014</option>
+                        <option>2013</option>
+                        <option>2012</option>
+                        <option>2011</option>
+                        <option>2010</option>
+                        <option>2009</option>
+                        <option>2008</option>
+                        <option>2007</option>
+                        <option>2006</option>
+                        <option>2005</option>
+                        <option>2004</option>
+                        <option>2003</option>
+                        <option>2002</option>
+                      </select>
+                    </div>
+                    <div class="col-md-4">
+                      <label for="distance">Distance:</label>
+                      <select class="form-control" id="dist">
+                        <option>42km</option>
+                        <option>21km</option>
+                        <option>10km</option>
+                      </select>
                     </div>
                   </div>
+                </div>
+                <div class="sub_option" id="group">
+                  <div>
+                    <h4>
+                      <span class="badge badge-secondary">Group</span>
+                      <button type="button" class="btn btn-primary btn-sm" id="addGroup">Add</button>
+                    </h4>
+                    <div class="error_msg" id="group_error"></div>
+                  </div>
+                  <div class="row sub_card">
+                    <div class="col-md-4">
+                      <label for="genger">Gender</label>
+                      <select class="form-control" id="g_gender">
+                        <option>Male</option>
+                        <option>Female</option>
+                      </select>
+                    </div>
+                    <div class="col-md-4">
+                      <label for="age_group">Age</label>
+                      <select class="form-control" id="age_group">
+                        <option>20-30</option>
+                        <option>30-40</option>
+                        <option>40-50</option>
+                        <option>Other</option>
+                      </select>
+                    </div>
+                    <div class="col-md-4">
+                      <label for="performance">Speed</label>
+                      <select class="form-control" id="age_speed">
+                        <option>Fastest</option>
+                        <option>Slowest</option>
+                        <option>Average</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="sub_option" id="person">
+                  <div>
+                    <h4>
+                      <span class="badge badge-secondary">Person</span>
+                      <button type="button" class="btn btn-primary btn-sm" id="addPerson">Add</button>
+                    </h4>
+                    <div class="error_msg" id="person_error"></div>
+                  </div>
+                  <div class="row sub_card">
+                    <div class="col-md-4">
+                      <label for="P_Gender">Gender</label>
+                      <select class="form-control" id="per_gender">
+                        <option>Male</option>
+                        <option>Female</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="name">Register Name</label>
+                      <input type="text" placeholder="Runner name" class="form-control" id="name">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card sub_option" style="width: 100%;">
+                <div class="card-header">Runner on the map</div>
+                <ul id="runner_list" class="list-group list-group-flush">
+                </ul>
+              </div>
             </div>
+          </div>
         </div>
       </div>
-      <br/>
     </div>
+    <br/>
+  </div>
   </div>
   <!-- /.content-wrapper-->
   <footer class="sticky-footer">

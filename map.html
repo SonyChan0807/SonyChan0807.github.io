@@ -26,8 +26,20 @@
       <!-- Data viz description-->
       <div class="card mb-3">
         <div class="card-header">
-          <i class="fa fa-info-circle"></i> Data visualization description TBD</div>
+          <i class="fa fa-info-circle"></i> Data visualization description </div>
         <div class="card-body">
+          <p class="intro">
+            Our original idea of the visualization is to show the distribution of the participants in the marathon by years. When user
+            slide the slider, the runner distribution of the selected year will show on the map with the semi transparent
+            green dots. We chose black map as the background. Because, it can contrast the green dots and it is easier to
+            observe the distribution for the map. we used the slider as our major filter option since it has more interactive
+            experience to the user compared to the basic selection drop down. When the user click the enabled button, the
+            top 10 runner of the selected group will appear on the map with the bigger blue dot. And the map will re-center
+            to the first runner. This could allow us to observe where the best runners comes from. If user wants to look
+            into a specific runner, one could simply move the mouse to the table and the map will re-center to the city where
+            the selected runner came from, and the dot of the selected runner will change to yellow and the overall distribution
+            will fade out for user to see the dot more clearly.
+          </p>
         </div>
       </div>
       <div class="row">
@@ -108,14 +120,14 @@
       </div>
       <br/>
       <div class="row">
-          <div class="col-lg-12 h-100">
-            <div class="card mb-3 h-100">
-              <div class="card-header">
-                <i class="fa fa-globe fa-2"></i> Map</div>
-              <div class="card-body" id='geomap'></div>
-            </div>
+        <div class="col-lg-12 h-100">
+          <div class="card mb-3 h-100">
+            <div class="card-header">
+              <i class="fa fa-globe fa-2"></i> Map</div>
+            <div class="card-body" id='geomap'></div>
           </div>
         </div>
+      </div>
     </div>
     <footer class="sticky-footer">
       <div class="container">

@@ -106,9 +106,15 @@ function deleteList(id) {
     gxpTimeLayerStore[id].remove();
     delete gxpTimeLayerStore[id];
 
-    initMap();
+    // map.setView([46.494418, 6.743643], currentZoom, {
+    //     pan: {
+    //         animate: true,
+    //         duration: 1.0
+    //     }
+    // });
+    console.log(gxpTimeLayerStore);
     let keys = Object.keys(gxpTimeLayerStore);
-    if (key.length != 0) {
+    if (keys.length != 0) {
         keys.forEach(key => gxpTimeLayerStore[key].addTo(map));
     }
 }

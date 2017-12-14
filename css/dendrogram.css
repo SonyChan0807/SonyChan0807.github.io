@@ -51,3 +51,8 @@ text {
     -webkit-filter: drop-shadow( -1.5px -1.5px 1.5px #000 );
     filter: drop-shadow( -1.5px -1.5px 1.5px #000 );
 }
+
+.intro {
+    text-align:justify;
+    font-size: 16px;
+}

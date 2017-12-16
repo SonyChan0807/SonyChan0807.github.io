@@ -1,13 +1,21 @@
 /* jshint esversion: 6 */
 
+
 // Load navigation into page
 $(document).ready(function() {
     $('#mainNav').load('navigation.html');
     $('#mainNav').addClass('navbar navbar-expand-lg navbar-dark bg-dark fixed-top');
     $('#showMore').click( function() {
-      $('#info').show();
+      let status = $(this).attr('status')
+      if (status === "off") {
+        $('#info').show();
+        $(this).text("Hide Tutorial").attr('class','btn btn-danger btn-sm').attr('status', 'on')
+      }else if (status === "on"){
+        $('#info').hide();
+        $(this).text("Show Tutorial").attr('class', 'btn btn-primary btn-sm').attr('status', 'off')
+      }
     });
-    $('#hideMore').click(function(){
+    $('.hideMore').click(function(){
       $('#info').hide();
     })
 });

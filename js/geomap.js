@@ -295,7 +295,7 @@ function updateBarAge(dataset, margin, width, height) {
             if (d.name == 'male'){
                 d3.selectAll(`.${d.name}_${d.label}_map`).attr('style', "fill: steelblue");
             }else {
-                d3.selectAll(`.${d.name}_${d.label}_map`).attr('style', "fill: red");
+                d3.selectAll(`.${d.name}_${d.label}_map`).attr('style', "fill: #FF7F0D");
             }
             d3.selectAll("#rank_circles").style("opacity", 0.0);
         })
@@ -381,9 +381,9 @@ function showRunner() {
         //show on the map
         d3.selectAll(`.rank_${data[0]['race year']}_${data[0]['gender']}_${data[0]['age group']}_${data[0]['category']}`)
             .classed('rankTr_cirlcle', true)
-            .style("stroke", 'steelblue')
+            .style("stroke", 'red')
             .style("opacity", 1)
-            .style("fill", 'steelblue')
+            .style("fill", 'red')
             .attr('id', d => `rank_${d['index']}`)
             .attr("r", (d) => 6);
 
@@ -417,9 +417,9 @@ function showRunner() {
                     .style("fill", '#ccebc5');
 
                 d3.select(`#rank_${idx}`)
-                    .style("stroke", 'steelblue')
+                    .style("stroke", 'red')
                     .style("opacity", 1)
-                    .style("fill", 'steelblue')
+                    .style("fill", 'red')
                     .attr('id', d => `rank_${d['index']}`)
                     .attr("r", (d) => 6);
             });

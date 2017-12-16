@@ -26,7 +26,9 @@
       <!-- Data viz description-->
       <div class="card mb-3">
         <div class="card-header">
-          <i class="fa fa-info-circle"></i> Data visualization description </div>
+          <i class="fa fa-info-circle"></i> Data Visualization Description &nbsp
+          <button type="button" class="btn btn-primary btn-sm" id="showMore">Show Tutorial</button>
+        </div>
         <div class="card-body">
           <p class="intro">
             Our original idea of the visualization is to show the distribution of the participants in the marathon by years. When user
@@ -38,8 +40,61 @@
             to the first runner. This could allow us to observe where the best runners comes from. If user wants to look
             into a specific runner, one could simply move the mouse to the table and the map will re-center to the city where
             the selected runner came from, and the dot of the selected runner will change to yellow and the overall distribution
-            will fade out for user to see the dot more clearly.
+            will fade out for user to see the dot more clearly
           </p>
+
+          <div id="info" style="display: none">
+            <h4>How To Use</h4>
+            <div>
+              <p>
+                <h5>To select the year, move the slider to the year you what to observes.</h5>
+                <div class="text-center">
+                  <img  class="img_info" src="img/map/map1.png" alt="">
+                </div>
+              </p>
+              <p>
+                <h5>To see the distribution of each group, move the mouse over the bar chart</h5>
+                <div class="text-center">
+                  <img class="img_info" src="img/map/map2.png" alt="">
+                </div>
+              </p>
+              <p>
+                <h5>To show the top 10 runner of each group, click "Disabled" toggle next to “Show Top Rank Runner”, then the runner will
+                  appear on the map with big blue circles.
+                </h5>
+                <div class="text-center">
+                  <img class="img_info" src="img/map/map3.png" alt="">
+                  <img class="img_info" src="img/map/map4.png" alt="">
+                </div>
+              </p>
+              <p>
+                <h5>To change the group, select the desired group and click “Update” button, then the new list of runner will
+                  be update to the map and to the table below.
+                </h5>
+                <div class="text-center">
+                  <img class="img_info" src="img/map/map5.png" alt="">
+                </div>
+              </p>
+              <p>
+                <h5>To show the individual runner, move the mouse to the table, then the map will re-center to the home city
+                  of selected runner.
+                </h5>
+                <div class="text-center">
+                  <img  class="img_info" src="img/map/map6.png" alt="">
+                </div>
+              </p>
+              <p>
+                <h5>To diable "Show Top Rank Runner", click "Enabled" toggle next to the title
+                </h5>
+                <div class="text-center">
+                  <img class="img_info" src="img/map/map7.png" alt="">
+                  <img class="img_info" src="img/map/map/map8.png" alt="">
+                </div>
+              </p>
+
+              <a href="#page-top"><button type="button" class="btn btn-danger btn-sm" id="hideMore">Hide Tutorial</button></a>
+            </div>
+          </div>
         </div>
       </div>
       <div class="row">

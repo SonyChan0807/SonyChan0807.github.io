@@ -88,7 +88,7 @@ function addInfo(type, tagId, year, dist, gender, secs, iconParams, name = "", a
 function genIconParams() {
     let colors = ["#3366cc", "#dc3912", "#ff9900", "#109618", "#990099", "#0099c6", "#dd4477", "#66aa00", "#b82e2e", "#316395", "#994499", "#22aa99", "#aaaa11", "#6633cc", "#e67300", "#8b0707", "#651067", "#329262", "#5574a6", "#3b3eac"];
     let dashes = ["5, 5", "5, 10", "10, 5", "6, 3", "15, 10, 5", "15, 10, 5, 10", "15, 10, 5, 10, 15", "5, 5, 1, 5"];
-    let imgSrcs = ['img/runner-blue.png', 'img/runner-red.png', 'img/runner-green.png', 'img/runner-orange.png', 'img/runner-purple.png'];
+    let imgSrcs = ['img/runner/runner-blue.png', 'img/runner/runner-red.png', 'img/runner/runner-green.png', 'img/runner/runner-orange.png', 'img/runner/runner-purple.png'];
 
     let params = {
         'color': colors[Math.floor(Math.random() * colors.length)],

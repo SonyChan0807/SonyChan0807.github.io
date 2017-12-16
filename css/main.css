@@ -163,3 +163,7 @@ rect.highlight {
 .intro_img{
   margin: auto auto;
 }
+
+.img_info {
+  height: 400px
+}

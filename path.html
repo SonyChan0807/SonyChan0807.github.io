@@ -27,7 +27,9 @@
       <!-- Data viz description-->
       <div class="card mb-3">
         <div class="card-header">
-          <i class="fa fa-info-circle"></i> Data visualization description</div>
+          <i class="fa fa-info-circle"></i> Data visualization description &nbsp
+          <button type="button" class="btn btn-primary btn-sm" id="showMore">Show Tutorial</button>
+        </div>
         <div class="card-body">
           <p class="intro">The purpose of this visualization is to visualize how the runner moves on the path along the time. And it allow
             the user to add more than one runners and compare their speed and show the how big difference it is among the
@@ -36,6 +38,62 @@
             marathon and the other is the select menu which allows users to filter their desired player and display it on
             the map. Moreover, the user could select at most five people from arbitrary year, distance, group and person.
           </p>
+
+          <div id="info" style="display: none">
+            <h4>How To Use</h4>
+            <div>
+              <p>
+                <h5>Select the desired year and category.
+                </h5>
+                <div class="text-center">
+                  <img class="img_info" src="img/path/path1.png" alt="">
+                </div>
+              </p>
+              <p>
+                <h5>Add runner by selecting a specific group or by entering a name and click “Add” button. Then the runner will
+                  show up on the map and the runner record will be added to “Runner on the Map”
+                </h5>
+                <div class="text-center">
+                  <img class="img_info" src="img/path/path2.png" alt="">
+                  <img  class="img_info" src="img/path/path3.png" alt="">
+                </div>
+              </p>
+              <p>
+                <h5>After adding the runner, click play button on the bottom left of map, and observe the position of runner
+                  over the time. You can also arbitrarily adjust the time and play speed by moving the slider on the control
+                  bar
+                </h5>
+                <div class="text-center">
+                  <img  class="img_info" src="img/path/path4.png" alt="">
+                </div>
+              </p>
+              <p>
+                <h5>Hover to the runner icon on the map, it would show the information of the runner
+                </h5>
+                <div class="text-center">
+                  <img class="img_info" src="img/path/path5.png" alt="">
+                </div>
+              </p>
+              <p>
+                <h5>If you want to remove a specific user, click “Delete” button next to the runner.
+
+                </h5>
+                <div class="text-center">
+                  <img class="img_info" src="img/path/path6.png" alt="">
+                </div>
+              </p>
+              <p>
+                <h5>If you want remove all runner or start a new comparison, click “Reset” button
+                </h5>
+                <div class="text-center">
+                  <img class="img_info" src="img/path/path7.png" alt="">
+                </div>
+              </p>
+              <a href="#page-top">
+                <button type="button" class="btn btn-danger btn-sm" id="hideMore">Hide Tutorial</button>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
 

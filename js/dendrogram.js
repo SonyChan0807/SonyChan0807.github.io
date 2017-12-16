@@ -48,7 +48,7 @@ function updateDendrogram(value){
 
       let alldata = crossfilter(data),
           dataByYear = alldata.dimension(function(d) { return d.year; }),
-          chooseDataByYear = dataByYear.filter(function(d) { return d == value}),
+          chooseDataByYear = dataByYear.filter(function(d) { return d == value;}),
           chooseDataByYearObject = chooseDataByYear.top(Infinity);
 
       for (let i = 0; i < categories.length; i++){
@@ -189,7 +189,7 @@ function updateDendrogram(value){
 
           ballGMovement.select("text")
                   .delay(300)
-                  .text(Number(d.data.value).toFixed(1));
+                  .text(Number(d.data.value).toFixed(0));
       }
       function handleMouseOut() {
           let leafG = d3.select(this);

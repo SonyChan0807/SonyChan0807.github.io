@@ -15,8 +15,9 @@ $(document).ready(function() {
         $(this).text("Show Tutorial").attr('class', 'btn btn-primary btn-sm').attr('status', 'off')
       }
     });
-    $('.hideMore').click(function(){
+    $('#hideMore').click(function(){
       $('#info').hide();
+      $("#showMore").text("Show Tutorial").attr('class', 'btn btn-primary btn-sm').attr('status', 'off')
     });
 });
 

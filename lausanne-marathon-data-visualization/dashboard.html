@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Lausanne Marathon</title>
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="css/sb-admin.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/histogram.css">
+  <link rel="stylesheet" href="css/piechart.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.0/css/bootstrap-slider.css">
+  <link rel="icon" href="/img/logo.png">
+</head>
+
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+  <!-- Navigation-->
+  <nav id="mainNav"></nav>
+
+  <div class="content-wrapper">
+    <div class="container-fluid">
+      <div class="row">
+        <!-- Data viz 1 -->
+        <div class="col-lg-6">
+          <div class="card mb-3 h-100">
+            <div class="card-header">
+              <i class="fa fa-pie-chart"></i> Donut Chart - Participant distribution by category</div>
+            <div class="card-body" style="height: 300px;" id='piechart'></div>
+          </div>
+        </div>
+        <!-- Data viz 2 -->
+        <div class="col-lg-6">
+          <div class="card mb-3 h-100">
+            <div class="card-header">
+              <i class="fa fa-bar-chart"></i> Bar Chart - Fastest runner time</div>
+            <div class="card-body" id='min'></div>
+          </div>
+        </div>
+      </div>
+
+      <br>
+
+      <div class="row">
+        <div style="position: relative; left: 50px; bottom:5px; width:90%;">
+          <input id="year-slider" type="text" style="width:100%;" data-slider-min=2015 data-slider-max=2017 data-slider-step="1" data-slider-value=2017
+            data-slider-tooltip="hide" />
+        </div>
+      </div>
+      <br>
+
+      <div class="row">
+        <!-- Data viz 3 -->
+        <div class="col-lg-6">
+          <div class="card mb-3 h-100">
+            <div class="card-header">
+              <i class="fa fa-bar-chart"></i> Bar Chart - Average race time</div>
+            <div class="card-body" id='avg'></div>
+          </div>
+        </div>
+
+        <!-- Data viz 4 -->
+        <div class="col-lg-6">
+          <div class="card mb-3 h-100">
+            <div class="card-header">
+              <i class="fa fa-bar-chart"></i> Bar Chart - Slowest runner time</div>
+            <div class="card-body" id='max'></div>
+          </div>
+        </div>
+      </div>
+
+      <br>
+
+      <!-- Data viz description-->
+      <div class="card mb-3">
+        <div class="card-header">
+          <i class="fa fa-info-circle"></i> Data visualization description</div>
+        <div class="card-body">
+          <p class="intro">
+            &emsp;&emsp;This dashboard presents the best, worst and average runner performance of each race group for any given year. Each time
+            you move the mouse to a donut area or bar, more detailed information will be presented. Furthermore, you can
+            use the year slider situated at the middle of the dashboard to observe the variation of the male and female runner
+            distribution for each race by donut chart and the fluctuation of the performance tendency for each race over
+            year. If you are interested in observing the variation for a given category, for instance 42km-male, you can
+            hover your mouse on the corresponding donut area or the relevant bar in no matter which bar chart to highlight
+            the same category in all the 4 charts at the same time.
+          </p>
+        </div>
+      </div>
+    </div>
+    <footer class="sticky-footer">
+      <div class="container">
+        <div class="text-center">
+          <small>
+            <a href="http://isa.epfl.ch/imoniteur_ISAP/!itffichecours.htm?ww_i_matiere=2217640779&ww_x_anneeAcad=2017-2018&ww_i_section=2138477330&ww_i_niveau=&ww_c_langue=fr">EPFL COM-480 Data Visualization 2017</a> -
+            <a href="https://github.com/zenhaeus/cs-480">GitHub Source</a> -
+            <a href="mailto:xiangzhe.meng@epfl.ch">Contact Us</a>
+          </small>
+        </div>
+      </div>
+    </footer>
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fa fa-angle-up"></i>
+    </a>
+  </div>
+
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fa fa-angle-up"></i>
+  </a>
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- Core plugin JavaScript-->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/crossfilter/1.3.12/crossfilter.min.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.0/bootstrap-slider.js"></script>
+  <script type="text/javascript" src="js/common.js"></script>
+  <script type="text/javascript" src="js/dashboard.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Lausanne Marathon</title>
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.css" />
+  <link rel="stylesheet" href="https://cdn.rawgit.com/socib/Leaflet.TimeDimension/master/dist/leaflet.timedimension.control.min.css"></link>
+  <link href="css/sb-admin.css" rel="stylesheet">
+  <!-- <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet"> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.0/css/bootstrap-slider.css">
+  <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+  <link rel="stylesheet" href='css/main.css'>
+  <link rel="icon" href="/img/logo.png">
+</head>
+
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+  <!-- Navigation-->
+  <nav id="mainNav"></nav>
+
+  <div class="content-wrapper">
+    <div class="container-fluid">
+      <!-- Data viz description-->
+      <div class="row">
+        <div style="position: relative; left: 50px; bottom:5px; width:90%;">
+          <input id="year-slider" type="text" style="width:100%;" data-slider-min=2015 data-slider-max=2017 data-slider-step="1" data-slider-value=2017
+            data-slider-tooltip="hide" />
+        </div>
+      </div>
+      <div class="row">
+        <!-- Data viz 2-->
+        <div class="col-lg-7" style="height: 400px">
+          <div class="card mb-3 h-100">
+            <div class="card-header">
+              <i class="fa fa-bar-chart"></i> Barchart - Participant distribution by Age</div>
+            <div class="card-body" id='barchart_age'></div>
+          </div>
+        </div>
+        <!-- Data viz 3-->
+        <div class="col-lg-5" style="height: 400px">
+          <div class="card mb-3 h-100">
+            <div class="card-header" style="height: 49px">
+              <i class="fa fa-cog"></i>
+              Show Top rank runner &nbsp
+              <input id="toggle-event" type="checkbox" data-toggle="toggle" data-onstyle="primary" data-offstyle="danger" data-on="Enabled"
+                data-off="Disabled" data-size="small">
+              <button type="button" class="btn btn-primary btn-sm disabled" id="updateRank">Update</button>
+            </div>
+            <div class="card-body" style="overflow: scroll">
+              <div class="row" id="runner_table">
+                <div class="col-md-3">
+                  <label for="genger">Gender</label>
+                  <select class="form-control" id="gender">
+                    <option>Male</option>
+                    <option>Female</option>
+                  </select>
+                </div>
+                <div class="col-md-4">
+                  <label for="age_group">Age</label>
+                  <select class="form-control" id="age_group">
+                    <option>20-30</option>
+                    <option>30-40</option>
+                    <option>40-50</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+                <div class="col-md-4">
+                  <label for="distance">Catogory</label>
+                  <select class="form-control" id="dist">
+                    <option>42km</option>
+                    <option>21km</option>
+                    <option>10km</option>
+                  </select>
+                </div>
+              </div>
+              <br/>
+              <div class="row">
+                <div class="col-md-12">
+                  <div>
+                    <table class="table table-bordered table table-hover" id="dataTable" width="100%" height="80%" cellspacing="0">
+                      <thead class="thead-default">
+                        <tr>
+                          <th>#</th>
+                          <th>Runner</th>
+                          <th>City</th>
+                          <th>Country</th>
+                        </tr>
+                      </thead>
+                      <tbody id="rank_tbody">
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br/>
+      <div class="row">
+        <div class="col-lg-12 h-100">
+          <div class="card mb-3 h-100">
+            <div class="card-header">
+              <i class="fa fa-globe fa-2"></i> Map</div>
+            <div class="card-body" id='geomap'></div>
+          </div>
+        </div>
+      </div>
+      <div class="card mb-3">
+        <div class="card-header">
+          <i class="fa fa-info-circle"></i> Data Visualization Description &nbsp
+          <button type="button" class="btn btn-primary btn-sm" status="off" id="showMore">Show Tutorial</button>
+        </div>
+        <div class="card-body">
+          <p class="intro">
+            &emsp;&emsp;Our original idea of the visualization is to show the distribution of the participants in the marathon for every year.
+            By moving the year slider, the runner distribution of the selected year will appear on the map with visualized by semi transparent
+            green dots. We chose a black map theme as the background, because it can contrast the green dots and it is easier to
+            observe the distribution on the map. we used the slider as our major filter option since it provides a more interactive
+            experience to the user compared to the basic selection drop down. When the user clicks the enabled button, the
+            top 10 runner of the selected group will appear on the map as bigger blue dots, and the map will re-center
+            to the first placed runner. This allows us to easily see where the best runners come from. If the user wants to look
+            into a specific runner, he can simply move the mouse to the table and the map will re-center to the city where
+            the selected runner comes from. The dot of the selected runner will then change to yellow and the overall distribution
+            will fade out to make it easier to see the selected runners dot.
+          </p>
+
+          <div id="info" style="display: none">
+            <h4>How To Use</h4>
+            <div>
+              <p>
+                <h5>To select the year, move the slider to the year you would like to observe.</h5>
+                <div class="text-center">
+                  <img  class="img_info" src="img/map/map1.png" alt="">
+                </div>
+              </p>
+              <p>
+                <h5>To see the distribution of each group, move the mouse over the bar chart</h5>
+                <div class="text-center">
+                  <img class="img_info" src="img/map/map2.png" alt="">
+                </div>
+              </p>
+              <p>
+                <h5>To show the top 10 runners of each group, click the "Disabled" button next to “Show Top Rank Runner”, then the runners will
+                  appear on the map with big blue circles.
+                </h5>
+                <div class="text-center">
+                  <img class="img_info" src="img/map/map3.png" alt="">
+                  <img class="img_info" src="img/map/map4.png" alt="">
+                </div>
+              </p>
+              <p>
+                <h5>To change the group, select the desired group and click the “Update” button, then the new list of runners will
+                  be updated to the map and to the table below.
+                </h5>
+                <div class="text-center">
+                  <img class="img_info" src="img/map/map5.png" alt="">
+                </div>
+              </p>
+              <p>
+                <h5>To show the individual runner, move the mouse to the table, then the map will re-center to the home city
+                  of the selected runner.
+                </h5>
+                <div class="text-center">
+                  <img  class="img_info" src="img/map/map6.png" alt="">
+                </div>
+              </p>
+              <p>
+                <h5>To disable "Show Top Rank Runner", click the "Enabled" button next to the title.
+                </h5>
+                <div class="text-center">
+                  <img class="img_info" src="img/map/map7.png" alt="">
+                  <img class="img_info" src="img/map/map8.png" alt="">
+                </div>
+              </p>
+
+              <a href="#page-top"><button type="button" class="btn btn-danger btn-sm" id="hideMore">Hide Tutorial</button></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="sticky-footer">
+      <div class="container">
+        <div class="text-center">
+          <small>
+            <a href="http://isa.epfl.ch/imoniteur_ISAP/!itffichecours.htm?ww_i_matiere=2217640779&ww_x_anneeAcad=2017-2018&ww_i_section=2138477330&ww_i_niveau=&ww_c_langue=fr">EPFL COM-480 Data Visualization 2017</a> -
+            <a href="https://github.com/zenhaeus/cs-480">GitHub Source</a> -
+            <a href="mailto:xiangzhe.meng@epfl.ch">Contact Us</a>
+          </small>
+        </div>
+      </div>
+    </footer>
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fa fa-angle-up"></i>
+    </a>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Page level plugin JavaScript-->
+    <script src="vendor/datatables/jquery.dataTables.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+
+    <script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/crossfilter/1.3.12/crossfilter.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.js"></script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/nezasa/iso8601-js-period/master/iso8601.min.js"></script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/socib/Leaflet.TimeDimension/master/dist/leaflet.timedimension.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.0/bootstrap-slider.js"></script>
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    <script type="text/javascript" src='js/common.js'></script>
+    <script type="text/javascript" src='js/geomap.js'></script>
+  </div>
+</body>
+
+</html>

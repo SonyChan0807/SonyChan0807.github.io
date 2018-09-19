@@ -1,0 +1,169 @@
+#geomap {
+  width: 100%;
+  height: 400px;
+}
+
+#pathmap {
+  width: 100%;
+  height: 100%;
+  /* margin: 10px 5px; */
+}
+#addMenu {
+  width: 36%; 
+  height: 100%;
+  line-height: 100%; 
+  padding: 0px; 
+  /* border: 2px blue solid;  */
+  margin: 5px 5px; 
+  float: left;
+  overflow: scroll;
+}
+
+#add_menu , #runner_table{
+  overflow: scroll;
+}
+
+
+
+.toolTip {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  position: absolute;
+  display: none;
+  width: auto;
+  height: auto;
+  background: none repeat scroll 0 0 white;
+  border: 0 none;
+  border-radius: 8px 8px 8px 8px;
+  box-shadow: -3px 3px 15px #888888;
+  color: black;
+  font: 12px sans-serif;
+  padding: 5px;
+  text-align: center;
+}
+
+.legend {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 60%;
+}
+
+rect {
+  stroke-width: 2;
+}
+
+text {
+  font: 15px sans-serif;
+  text-transform: capitalize;
+}
+
+.axis text {
+  font: 15px sans-serif;
+  text-transform: capitalize;
+}
+
+.axis path {
+  fill: none;
+  stroke: #000;
+}
+
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.axis .tick line {
+  stroke-width: 1;
+  stroke: rgba(0, 0, 0, 0.2);
+}
+
+.axisHorizontal path {
+  fill: black;
+}
+
+.axisHorizontal line {
+  fill: black;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.axisHorizontal .tick line {
+  stroke-width: 1;
+  stroke: rgba(0, 0, 0, 0.2);
+}
+
+.bar {
+  fill: steelblue;
+  fill-opacity: .9;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.ageGroup {
+  fill: red;
+  fill-opacity: .9;
+}
+
+rect.highlight {
+  stroke: black;
+}
+
+.sub_option{
+  margin: 5px 2px;
+  border: 1px solid#CCC;
+  padding: 4px;
+  border-radius: 5px
+}
+
+.sub_card{
+  margin: 5px 2px;
+  padding: 4px;
+  border-radius: 5px
+}
+
+.align_right {
+  margin-left:auto;
+  margin-right:2px;
+  float: left;
+}
+
+.error_msg{
+  font-size: 20 px;
+  color: red;
+}
+
+.bar_city { fill: steelblue; }
+
+.city_label {
+  font: 5px solid Tahoma;
+}
+
+.rank_circles {
+  z-index: 100;
+  stroke: steelblue;
+  opacity: 0.5;
+  fill: steelblue;
+}
+.rank_runner {
+  stroke: yellow;
+  fill: yellow;
+}
+
+.selected_runner {
+  stroke: steelblue;
+  opacity: 0.5;
+  fill: steelblue;
+}
+
+.intro{
+  text-align:justify;
+  font-size: 16px
+}
+.intro_img{
+  margin: auto auto;
+}
+
+.img_info {
+  height: 400px
+}
